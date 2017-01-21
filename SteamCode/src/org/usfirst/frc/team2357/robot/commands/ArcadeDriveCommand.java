@@ -7,10 +7,10 @@ import org.usfirst.frc.team2357.robot.Robot;
 /**
  *
  */
-public class ExampleCommand extends Command {
-	public ExampleCommand() {
+public class ArcadeDriveCommand extends Command {
+	public ArcadeDriveCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.exampleSubsystem);
+		requires(Robot.driveSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,6 +21,9 @@ public class ExampleCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		Robot.driveSubsystem.arcadeDrive(
+				Robot.oi.getArcadeDriveMoveValue(),
+				Robot.oi.getArcadeDriveTurnValue());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -38,5 +41,6 @@ public class ExampleCommand extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		end();
 	}
 }

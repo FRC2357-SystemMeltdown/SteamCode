@@ -1,11 +1,9 @@
 package org.usfirst.frc.team2357.robot;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.Joystick;
-
-
-import org.usfirst.frc.team2357.robot.commands.ExampleCommand;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,19 +20,17 @@ public class OI {
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
-	Joystick controller = new Joystick(0);
-	Button a = new JoystickButton(controller, 1);
-	Button b = new JoystickButton(controller, 2);
-	Button x = new JoystickButton(controller, 3);
-	Button y = new JoystickButton(controller, 4);
-	Button leftBumper = new JoystickButton(controller, 5);
-	Button rightBumper = new JoystickButton(controller, 6);
-	Button backButton = new JoystickButton(controller, 7);
-	Button startButton = new JoystickButton(controller, 8);
-	Button leftStickButton = new JoystickButton(controller, 9);
-	Button rightStickButton = new JoystickButton(controller, 10);
-	
-	
+	private XboxController driveController = new XboxController(0);
+	private Button a = new JoystickButton(driveController, 1);
+	private Button b = new JoystickButton(driveController, 2);
+	private Button x = new JoystickButton(driveController, 3);
+	private Button y = new JoystickButton(driveController, 4);
+	private Button leftBumper = new JoystickButton(driveController, 5);
+	private Button rightBumper = new JoystickButton(driveController, 6);
+	private Button backButton = new JoystickButton(driveController, 7);
+	private Button startButton = new JoystickButton(driveController, 8);
+	private Button leftStickButton = new JoystickButton(driveController, 9);
+	private Button rightStickButton = new JoystickButton(driveController, 10);
 	
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
@@ -51,4 +47,40 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	
+	/**
+	 * Get the XBox driver controller for the left side when using tank drive.
+	 * @return the XBox driver controller left side value for tank drive
+	 */
+	public double getTankLeft()
+	{
+		return driveController.getY(Hand.kLeft);
+	}
+	
+	/**
+	 * Get the XBox driver controller for the right side when using tank drive.
+	 * @return the XBox driver controller right side value for tank drive
+	 */
+	public double getTankRight()
+	{
+		return driveController.getY(Hand.kRight);
+	}
+	
+	/**
+	 * Get the XBox driver controller value for the arcade drive move value.
+	 * @return the XBox driver controller value for the arcade drive move value
+	 */
+	public double getArcadeDriveMoveValue()
+	{
+		return driveController.getY(Hand.kLeft);
+	}
+	
+	/**
+	 * Get the XBox driver controller value for the arcade drive turn value.
+	 * @return the XBox driver controller value for the arcade drive turn value
+	 */
+	public double getArcadeDriveTurnValue()
+	{
+		return driveController.getX(Hand.kLeft);
+	}
 }
