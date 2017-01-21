@@ -21,6 +21,7 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveSub driveSubsystem = new DriveSub();
 	public static OI oi;
+	public static Config config = new Config();
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
