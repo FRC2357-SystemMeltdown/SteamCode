@@ -16,13 +16,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveSub extends Subsystem {
 	private CANTalon leftDrive = new CANTalon(RobotMap.leftDrive1);
 	private CANTalon rightDrive = new CANTalon(RobotMap.rightDrive1);
-	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive1);
-	private CANTalon rightDriveSlave = new CANTalon(RobotMap.leftDrive2);
+	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive2);
+	private CANTalon rightDriveSlave = new CANTalon(RobotMap.rightDrive2);
 	private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
 	
 	public DriveSub(){
-		//leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
-		//leftDriveSlave.set(RobotMap.leftDrive1);
+		leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
+		leftDriveSlave.set(RobotMap.leftDrive1);
 		//leftDriveSlave.reverseOutput(true);
 		rightDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 		rightDriveSlave.set(RobotMap.rightDrive1);

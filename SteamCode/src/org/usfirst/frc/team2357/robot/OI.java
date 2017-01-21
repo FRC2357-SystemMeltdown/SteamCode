@@ -54,7 +54,7 @@ public class OI {
 	 */
 	public double getTankLeft()
 	{
-		return driveController.getY(Hand.kLeft);
+		return -driveController.getY(Hand.kLeft);
 	}
 	
 	/**
@@ -63,7 +63,7 @@ public class OI {
 	 */
 	public double getTankRight()
 	{
-		return driveController.getY(Hand.kRight);
+		return -driveController.getY(Hand.kRight);
 	}
 	
 	/**
