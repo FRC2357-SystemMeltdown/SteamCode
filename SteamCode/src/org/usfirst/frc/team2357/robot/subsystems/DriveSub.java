@@ -14,18 +14,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class DriveSub extends Subsystem {
-	private CANTalon leftDrive = new CANTalon(RobotMap.LEFT_DRIVE_CAN_2);
-	private CANTalon rightDrive = new CANTalon(RobotMap.RIGHT_DRIVE_CAN_1);
-	private CANTalon leftDriveSlave = new CANTalon(RobotMap.LEFT_DRIVE_CAN_1);
-	private CANTalon rightDriveSlave = new CANTalon(RobotMap.RIGHT_DRIVE_CAN_2);
+	private CANTalon leftDrive = new CANTalon(RobotMap.leftDrive1);
+	private CANTalon rightDrive = new CANTalon(RobotMap.rightDrive1);
+	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive1);
+	private CANTalon rightDriveSlave = new CANTalon(RobotMap.leftDrive2);
 	private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
 	
 	public DriveSub(){
 		//leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
-		//leftDriveSlave.set(RobotMap.LEFT_DRIVE_CAN_2);
+		//leftDriveSlave.set(RobotMap.leftDrive1);
 		//leftDriveSlave.reverseOutput(true);
 		rightDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
-		rightDriveSlave.set(RobotMap.RIGHT_DRIVE_CAN_1);
+		rightDriveSlave.set(RobotMap.rightDrive1);
 		//rightDriveSlave.reverseOutput(true);
 		robotDrive.setSafetyEnabled(false);
 	}
@@ -36,7 +36,7 @@ public class DriveSub extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	if (Config.driveMode == 0){
+    	if (Config.driveMode == true){
     		setDefaultCommand(new ArcadeDriveCommand());
     	}else{
     		setDefaultCommand(new TankDriveCommand());
