@@ -21,7 +21,7 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 	private XboxController driveController = new XboxController(0);
-	private Button a = new JoystickButton(driveController, 1);
+	/*private Button a = new JoystickButton(driveController, 1);
 	private Button b = new JoystickButton(driveController, 2);
 	private Button x = new JoystickButton(driveController, 3);
 	private Button y = new JoystickButton(driveController, 4);
@@ -30,7 +30,7 @@ public class OI {
 	private Button backButton = new JoystickButton(driveController, 7);
 	private Button startButton = new JoystickButton(driveController, 8);
 	private Button leftStickButton = new JoystickButton(driveController, 9);
-	private Button rightStickButton = new JoystickButton(driveController, 10);
+	private Button rightStickButton = new JoystickButton(driveController, 10);*/
 	
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
@@ -83,4 +83,16 @@ public class OI {
 	{
 		return driveController.getX(Hand.kLeft);
 	}
+	
+	/**
+	 *
+	 */
+	/*public boolean pneumaticSwitch(){
+		boolean PSwitch;
+		boolean switchStatus;
+		return(PSwitch);
+		if(get == true && switchStatus == 0){
+			
+		}*/
+	//}
 }

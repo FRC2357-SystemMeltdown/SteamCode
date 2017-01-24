@@ -1,8 +1,15 @@
 
 package org.usfirst.frc.team2357.robot;
 
-import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
 
+
+//import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
+import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
+import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
+
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -22,7 +29,8 @@ public class Robot extends IterativeRobot {
 	public static final DriveSub driveSubsystem = new DriveSub();
 	public static OI oi;
 	public static Config config = new Config();
-
+	public static PneumaticSub pneumaticSubsystem = new PneumaticSub();
+	public static VisionSub visionSubsystem = new VisionSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -32,10 +40,13 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
+		
 		oi = new OI();
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
  	}
 
 	/**

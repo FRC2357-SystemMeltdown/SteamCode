@@ -1,5 +1,4 @@
 package org.usfirst.frc.team2357.robot.subsystems;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,8 +28,7 @@ public class GripPipeline implements VisionPipeline {
 
 	//Outputs
 	private Mat hsvThresholdOutput = new Mat();
-	private Mat cvErodeOutput = new Mat();
-	private Mat maskOutput = new Mat();
+	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -42,24 +40,15 @@ public class GripPipeline implements VisionPipeline {
 	@Override	public void process(Mat source0) {
 		// Step HSV_Threshold0:
 		Mat hsvThresholdInput = source0;
-		double[] hsvThresholdHue = {82.55395683453237, 92.12121212121212};
-		double[] hsvThresholdSaturation = {77.96762589928058, 222.80303030303028};
-		double[] hsvThresholdValue = {233.90287769784175, 255.0};
+		double[] hsvThresholdHue = {58.273381294964025, 92.12121212121212};
+		double[] hsvThresholdSaturation = {87.14028776978417, 255.0};
+		double[] hsvThresholdValue = {169.69424460431657, 255.0};
 		hsvThreshold(hsvThresholdInput, hsvThresholdHue, hsvThresholdSaturation, hsvThresholdValue, hsvThresholdOutput);
 
-		// Step CV_erode0:
-		Mat cvErodeSrc = hsvThresholdOutput;
-		Mat cvErodeKernel = new Mat();
-		Point cvErodeAnchor = new Point(-1, -1);
-		double cvErodeIterations = 1.0;
-		int cvErodeBordertype = Core.BORDER_CONSTANT;
-		Scalar cvErodeBordervalue = new Scalar(-1);
-		cvErode(cvErodeSrc, cvErodeKernel, cvErodeAnchor, cvErodeIterations, cvErodeBordertype, cvErodeBordervalue, cvErodeOutput);
-
-		// Step Mask0:
-		Mat maskInput = source0;
-		Mat maskMask = cvErodeOutput;
-		mask(maskInput, maskMask, maskOutput);
+		// Step Find_Contours0:
+		Mat findContoursInput = hsvThresholdOutput;
+		boolean findContoursExternalOnly = false;
+		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
 
 	}
 
@@ -72,19 +61,11 @@ public class GripPipeline implements VisionPipeline {
 	}
 
 	/**
-	 * This method is a generated getter for the output of a CV_erode.
-	 * @return Mat output from CV_erode.
+	 * This method is a generated getter for the output of a Find_Contours.
+	 * @return ArrayList<MatOfPoint> output from Find_Contours.
 	 */
-	public Mat cvErodeOutput() {
-		return cvErodeOutput;
-	}
-
-	/**
-	 * This method is a generated getter for the output of a Mask.
-	 * @return Mat output from Mask.
-	 */
-	public Mat maskOutput() {
-		return maskOutput;
+	public ArrayList<MatOfPoint> findContoursOutput() {
+		return findContoursOutput;
 	}
 
 
@@ -105,39 +86,25 @@ public class GripPipeline implements VisionPipeline {
 	}
 
 	/**
-	 * Expands area of lower value in an image.
-	 * @param src the Image to erode.
-	 * @param kernel the kernel for erosion.
-	 * @param anchor the center of the kernel.
-	 * @param iterations the number of times to perform the erosion.
-	 * @param borderType pixel extrapolation method.
-	 * @param borderValue value to be used for a constant border.
-	 * @param dst Output Image.
-	 */
-	private void cvErode(Mat src, Mat kernel, Point anchor, double iterations,
-		int borderType, Scalar borderValue, Mat dst) {
-		if (kernel == null) {
-			kernel = new Mat();
-		}
-		if (anchor == null) {
-			anchor = new Point(-1,-1);
-		}
-		if (borderValue == null) {
-			borderValue = new Scalar(-1);
-		}
-		Imgproc.erode(src, dst, kernel, anchor, (int)iterations, borderType, borderValue);
-	}
-
-	/**
-	 * Filter out an area of an image using a binary mask.
-	 * @param input The image on which the mask filters.
-	 * @param mask The binary image that is used to filter.
+	 * Sets the values of pixels in a binary image to their distance to the nearest black pixel.
+	 * @param input The image on which to perform the Distance Transform.
+	 * @param type The Transform.
+	 * @param maskSize the size of the mask.
 	 * @param output The image in which to store the output.
 	 */
-	private void mask(Mat input, Mat mask, Mat output) {
-		mask.convertTo(mask, CvType.CV_8UC1);
-		Core.bitwise_xor(output, output, output);
-		input.copyTo(output, mask);
+	private void findContours(Mat input, boolean externalOnly,
+		List<MatOfPoint> contours) {
+		Mat hierarchy = new Mat();
+		contours.clear();
+		int mode;
+		if (externalOnly) {
+			mode = Imgproc.RETR_EXTERNAL;
+		}
+		else {
+			mode = Imgproc.RETR_LIST;
+		}
+		int method = Imgproc.CHAIN_APPROX_SIMPLE;
+		Imgproc.findContours(input, contours, hierarchy, mode, method);
 	}
 
 
