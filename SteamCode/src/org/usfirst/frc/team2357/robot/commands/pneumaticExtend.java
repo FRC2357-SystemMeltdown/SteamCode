@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
  *
  */
 public class pneumaticExtend extends Command {
+	private static boolean switchStatus = false;
 
     public pneumaticExtend() {
         // Use requires() here to declare subsystem dependencies
@@ -22,7 +23,6 @@ public class pneumaticExtend extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//if (Robot.oi.getAButton()==true){
     		
     	}
     
@@ -39,5 +39,13 @@ public class pneumaticExtend extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    }
+    
+    public static void setSwitchStatus(boolean switchStatus) {
+		pneumaticExtend.switchStatus = switchStatus;
+	}
+    
+    public static boolean getSwitchStatus(){
+    	return switchStatus;
     }
 }

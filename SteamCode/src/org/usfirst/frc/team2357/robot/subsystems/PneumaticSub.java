@@ -18,11 +18,7 @@ public class PneumaticSub extends Subsystem {
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
-    	if(9>=PDP.getVoltage()){
-    		compressor.setClosedLoopControl(false);
-    	}else{
-    		compressor.setClosedLoopControl(true);
-    	}
+    	
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }

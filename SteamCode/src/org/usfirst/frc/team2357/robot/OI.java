@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team2357.robot.commands.pneumaticExtend;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,7 +22,8 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 	private XboxController driveController = new XboxController(0);
-	/*private Button a = new JoystickButton(driveController, 1);
+
+	private Button a = new JoystickButton(driveController, 1);
 	private Button b = new JoystickButton(driveController, 2);
 	private Button x = new JoystickButton(driveController, 3);
 	private Button y = new JoystickButton(driveController, 4);
@@ -30,8 +32,9 @@ public class OI {
 	private Button backButton = new JoystickButton(driveController, 7);
 	private Button startButton = new JoystickButton(driveController, 8);
 	private Button leftStickButton = new JoystickButton(driveController, 9);
-	private Button rightStickButton = new JoystickButton(driveController, 10);*/
-	
+	private Button rightStickButton = new JoystickButton(driveController, 10);
+
+
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
@@ -87,12 +90,14 @@ public class OI {
 	/**
 	 *
 	 */
-	/*public boolean pneumaticSwitch(){
-		boolean PSwitch;
-		boolean switchStatus;
-		return(PSwitch);
-		if(get == true && switchStatus == 0){
-			
-		}*/
-	//}
+	public void pneumaticSwitch(){
+
+		if(driveController.getAButton()==true && pneumaticExtend.getSwitchStatus()==false){
+			pneumaticExtend.setSwitchStatus(true);
+		}
+		if(driveController.getAButton()==true && pneumaticExtend.getSwitchStatus()==true){
+			pneumaticExtend.setSwitchStatus(false);
+		}
+
+	}
 }

@@ -6,10 +6,10 @@ package org.usfirst.frc.team2357.robot;
 //import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
-import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
+//import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
+//import edu.wpi.cscore.CvSink;
+//import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static Config config = new Config();
 	public static PneumaticSub pneumaticSubsystem = new PneumaticSub();
-	public static VisionSub visionSubsystem = new VisionSub();
+	//public static VisionSub visionSubsystem = new VisionSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
