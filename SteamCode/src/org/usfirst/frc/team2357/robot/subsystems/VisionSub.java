@@ -27,6 +27,7 @@ public class VisionSub extends Subsystem {
 	private final Object imgLock = new Object();
 	private double centerX = 0.0;
 	public UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+	public double turnOutput;
         
         
         public VisionSub()
@@ -44,8 +45,23 @@ public class VisionSub extends Subsystem {
             });
             visionThread.start();
             
-        }       
+        }
         
+        public void centerOnTarget()
+        {
+        	//double centerX;
+        	synchronized (imgLock) {
+        		//centerX = this.centerX;
+        	}
+        	turnOutput = this.centerX - (RobotMap.imgWidth / 2);
+        	
+        }
+        
+        public double getTurnOutput() {
+			return turnOutput;
+			//TODO make command run drive method and turn to (-0.6, turn * 0.005)
+			//See Screensteps on utilizing GRIP generated code
+		}
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
