@@ -10,7 +10,7 @@ import org.usfirst.frc.team2357.robot.Robot;
 public class ArcadeDriveCommand extends Command {
 	public ArcadeDriveCommand() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.driveSubsystem);
+		requires(Robot.INSTANCE.driveSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -21,9 +21,9 @@ public class ArcadeDriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveSubsystem.arcadeDrive(
-				Robot.oi.getArcadeDriveMoveValue(),
-				Robot.oi.getArcadeDriveTurnValue());
+		Robot.INSTANCE.driveSubsystem.arcadeDrive(
+				Robot.INSTANCE.oi.getArcadeDriveMoveValue(),
+				Robot.INSTANCE.oi.getArcadeDriveTurnValue());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

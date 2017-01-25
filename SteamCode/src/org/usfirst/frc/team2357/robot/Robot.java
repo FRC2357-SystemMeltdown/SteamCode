@@ -7,6 +7,7 @@ package org.usfirst.frc.team2357.robot;
 import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
+import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 
 //import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSource;
@@ -26,11 +27,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveSub driveSubsystem = new DriveSub();
-	public static OI oi;
-	public static Config config = new Config();
-	public static PneumaticSub pneumaticSubsystem = new PneumaticSub();
-	//public static VisionSub visionSubsystem = new VisionSub();
+	public static Robot INSTANCE;
+	public final DriveSub driveSubsystem = new DriveSub();
+	public OI oi;
+	public Config config = new Config();
+	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
+	public VisionSub visionSubsystem = new VisionSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -40,7 +42,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
+		INSTANCE = this;
 		
 		oi = new OI();
 		// chooser.addDefault("Default Auto", new ExampleCommand());

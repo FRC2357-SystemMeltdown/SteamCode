@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team2357.robot.commands.pneumaticExtend;
+import org.usfirst.frc.team2357.robot.commands.pneumaticRetract;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -33,8 +34,15 @@ public class OI {
 	private Button startButton = new JoystickButton(driveController, 8);
 	private Button leftStickButton = new JoystickButton(driveController, 9);
 	private Button rightStickButton = new JoystickButton(driveController, 10);
-
-
+	
+	public OI()
+	{
+		a.whenPressed(new pneumaticExtend());
+		b.whenPressed(new pneumaticRetract());
+		
+		
+		
+	}
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
