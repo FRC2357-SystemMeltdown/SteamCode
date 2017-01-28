@@ -9,14 +9,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.HashMap;
 
+import edu.wpi.first.wpilibj.vision.VisionPipeline;
+
 import org.opencv.core.*;
 import org.opencv.core.Core.*;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.*;
 import org.opencv.objdetect.*;
-
-import edu.wpi.first.wpilibj.vision.VisionPipeline;
 
 /**
 * GripPipeline class.
@@ -39,12 +39,12 @@ public class GripPipeline implements VisionPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	public void process(Mat source0) {
+	@Override	public void process(Mat source0) {
 		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = source0;
 		double[] rgbThresholdRed = {11.465827338129495, 48.93939393939394};
 		double[] rgbThresholdGreen = {229.31654676258992, 255.0};
-		double[] rgbThresholdBlue = {137.5598739476165, 220.47981072546696};
+		double[] rgbThresholdBlue = {137.5598739476165, 219.12553051327305};
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Find_Contours0:
