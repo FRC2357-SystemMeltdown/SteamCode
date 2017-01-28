@@ -34,6 +34,9 @@ public class VisionSub extends Subsystem {
         {
         	camera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
             camera.setExposureManual(25);
+            camera.setBrightness(25);
+            camera.setWhiteBalanceManual(4500);
+            
 
             visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
                 if (!pipeline.filterContoursOutput().isEmpty()) {
