@@ -36,8 +36,8 @@ public class VisionSub extends Subsystem {
             camera.setExposureManual(25);
 
             visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-                if (!pipeline.findContoursOutput().isEmpty()) {
-                    Rect r = Imgproc.boundingRect(pipeline.findContoursOutput().get(0));
+                if (!pipeline.filterContoursOutput().isEmpty()) {
+                    Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                     synchronized (imgLock) {
                         centerX = r.x + (r.width / 2);
                     }
