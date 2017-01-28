@@ -95,17 +95,5 @@ public class OI {
 		return driveController.getX(Hand.kLeft);
 	}
 	
-	/**
-	 *
-	 */
-	public void pneumaticSwitch(){
 
-		if(driveController.getAButton()==true && pneumaticExtend.getSwitchStatus()==false){
-			pneumaticExtend.setSwitchStatus(true);
-		}
-		if(driveController.getAButton()==true && pneumaticExtend.getSwitchStatus()==true){
-			pneumaticExtend.setSwitchStatus(false);
-		}
-
-	}
 }
