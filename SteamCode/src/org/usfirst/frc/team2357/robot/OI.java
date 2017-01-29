@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+import org.usfirst.frc.team2357.robot.commands.centerOnTarget;
 import org.usfirst.frc.team2357.robot.commands.pneumaticExtend;
 import org.usfirst.frc.team2357.robot.commands.pneumaticRetract;
 
@@ -39,6 +41,7 @@ public class OI {
 	{
 		a.whenPressed(new pneumaticExtend());
 		b.whenPressed(new pneumaticRetract());
+		x.whileHeld(new centerOnTarget());
 		
 		
 		

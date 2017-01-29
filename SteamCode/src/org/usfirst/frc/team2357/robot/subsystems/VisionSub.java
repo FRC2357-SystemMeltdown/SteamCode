@@ -4,6 +4,7 @@ import org.opencv.core.Mat;
 //import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.videoio.VideoCapture;
 import org.usfirst.frc.team2357.robot.Robot;
 import org.usfirst.frc.team2357.robot.RobotMap;
 
@@ -29,47 +30,60 @@ public class VisionSub extends Subsystem {
 	
 	private final Object imgLock = new Object();
 	private double centerX = 0.0;
-	public UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 	public double turnOutput;
+	
+	//private VideoCapture videoCapture = new VideoCapture(0);
         
         
         public VisionSub()
         {
+        	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         	camera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
-            camera.setExposureManual(25);
+            /*camera.setExposureManual(25);
             camera.setBrightness(25);
-            camera.setWhiteBalanceManual(4500);
+            camera.setWhiteBalanceManual(4500);*/
             
-
             visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-                /*if (!pipeline.filterContoursOutput().isEmpty()) {
+                if (!pipeline.filterContoursOutput().isEmpty()) {
                     Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                     synchronized (imgLock) {
                         centerX = r.x + (r.width / 2);
-                    }
-                    
-                    
-                }*/
+                        System.out.println("vscenterX: " + centerX + " vsRectX: " + r.x + " vsRectWidth: " + r.width);
+                    }                                        
+                }
             	
-            	Mat source = new Mat();
+            	/*Mat source = new Mat();
             	Mat output = new Mat();
             	
             	CvSink cvSink = CameraServer.getInstance().getVideo();          	
             	CvSource outputStream = CameraServer.getInstance().putVideo("Processed", RobotMap.imgWidth, RobotMap.imgHeight);
             	while(!VisionThread.interrupted())
             	{
-            		//cvSink.grabFrame(source);
+            		cvSink.grabFrame(source);
                     //outputStream.putFrame(output);
             		//outputStream.putFrame(source);
+            		
             		outputStream.putFrame(pipeline.rgbThresholdOutput());
-            	}
+            	}*/
                                
             });
             visionThread.start();
             
+            /*new Thread(() -> {
+            	GripPipeline pipeline = new GripPipeline();
+            	
+                pipeline.process(videoCapture.grab());
+                //VideoCapture
+            	
+            }).start();*/
+            
         }
         
-        public void centerOnTarget()
+        public double getCenterX() {
+			return centerX;
+		}
+        
+        /*public void centerOnTarget()
         {
         	//double centerX;
         	synchronized (imgLock) {
@@ -77,7 +91,11 @@ public class VisionSub extends Subsystem {
         	}
         	turnOutput = this.centerX - (RobotMap.imgWidth / 2);
         	
-        }
+        }*/
+        
+        public Object getImgLock() {
+			return imgLock;
+		}
         
         public double getTurnOutput() {
 			return turnOutput;
