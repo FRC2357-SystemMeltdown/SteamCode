@@ -21,7 +21,7 @@ public class RobotMap {
 	public static final int rightDrive1 = 2;
 	public static final int rightDrive2 = 4;
 	
-	public static final int imgHeight = 320;
-	public static final int imgWidth = 240;
+	public static final int imgHeight = 240;
+	public static final int imgWidth = 320;
 	
 }

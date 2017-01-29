@@ -1,13 +1,16 @@
 package org.usfirst.frc.team2357.robot.subsystems;
 
+import org.opencv.core.Mat;
 //import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2357.robot.Robot;
 import org.usfirst.frc.team2357.robot.RobotMap;
 
+import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSource;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -39,12 +42,28 @@ public class VisionSub extends Subsystem {
             
 
             visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-                if (!pipeline.filterContoursOutput().isEmpty()) {
+                /*if (!pipeline.filterContoursOutput().isEmpty()) {
                     Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                     synchronized (imgLock) {
                         centerX = r.x + (r.width / 2);
                     }
-                }
+                    
+                    
+                }*/
+            	
+            	Mat source = new Mat();
+            	Mat output = new Mat();
+            	
+            	CvSink cvSink = CameraServer.getInstance().getVideo();          	
+            	CvSource outputStream = CameraServer.getInstance().putVideo("Processed", RobotMap.imgWidth, RobotMap.imgHeight);
+            	while(!VisionThread.interrupted())
+            	{
+            		//cvSink.grabFrame(source);
+                    //outputStream.putFrame(output);
+            		//outputStream.putFrame(source);
+            		outputStream.putFrame(pipeline.rgbThresholdOutput());
+            	}
+                               
             });
             visionThread.start();
             
