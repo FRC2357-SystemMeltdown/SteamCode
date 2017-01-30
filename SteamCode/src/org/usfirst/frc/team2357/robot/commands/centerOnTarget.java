@@ -36,7 +36,8 @@ public class centerOnTarget extends Command {
     	}
     	turn = centerx - (RobotMap.imgWidth / 2);
     	System.out.println("turn: " + turn);
-    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, turn * -0.0025);
+    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, turn * 0.004);
+    	//TODO use different constant for urning if in speed or strength mode
     	
     }
 

@@ -3,13 +3,16 @@ package org.usfirst.frc.team2357.robot.commands;
 import org.usfirst.frc.team2357.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.XboxController;
+
 
 /**
  *
  */
-public class pneumaticRetract extends Command {
+public class shiftSpd extends Command {
+	private static boolean switchStatus = false;
 
-    public pneumaticRetract() {
+    public shiftSpd() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.INSTANCE.pneumaticSubsystem);
@@ -21,8 +24,11 @@ public class pneumaticRetract extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INSTANCE.pneumaticSubsystem.retractPiston();
+    	Robot.INSTANCE.pneumaticSubsystem.shiftSpeed(/*Robot.pneumaticSubsystem.*/);
+    	
+    	
     }
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
@@ -38,5 +44,13 @@ public class pneumaticRetract extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.INSTANCE.pneumaticSubsystem.stopPistonSol();
+    }
+    
+    public static void setSwitchStatus(boolean switchStatus) {
+		shiftSpd.switchStatus = switchStatus;
+	}
+    
+    public static boolean getSwitchStatus(){
+    	return switchStatus;
     }
 }
