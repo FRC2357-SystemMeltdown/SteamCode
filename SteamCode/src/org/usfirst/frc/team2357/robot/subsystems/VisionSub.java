@@ -14,6 +14,7 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 //import edu.wpi.first.wpilibj.vision.*;
@@ -49,7 +50,13 @@ public class VisionSub extends Subsystem {
                     synchronized (imgLock) {
                         centerX = r.x + (r.width / 2);
                         System.out.println("vscenterX: " + centerX + " vsRectX: " + r.x + " vsRectWidth: " + r.width);
-                    }                                        
+                    }                       
+                    try {
+						visionThread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
                 }
             	
             	/*Mat source = new Mat();

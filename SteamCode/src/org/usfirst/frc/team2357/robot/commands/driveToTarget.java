@@ -4,27 +4,30 @@ import org.usfirst.frc.team2357.robot.Robot;
 import org.usfirst.frc.team2357.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 
 /**
  *
  */
-public class centerOnTarget extends Command {
+public class driveToTarget extends PIDCommand {
 	
+	public driveToTarget(double p, double i, double d) {
+		super(p, i, d);
+		// TODO Auto-generated constructor stub
+		requires(Robot.INSTANCE.driveSubsystem);
+    	requires(Robot.INSTANCE.visionSubsystem);
+	}
+
 	private double centerx;
 	private double turn;
 
-    public centerOnTarget() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.INSTANCE.driveSubsystem);
-    	requires(Robot.INSTANCE.visionSubsystem);
-    	
-    	
-    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	
+    	setSetpoint((RobotMap.imgWidth / 2));
+    	super.getPIDController().enable();
+    	//super.getPIDController().
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -34,7 +37,6 @@ public class centerOnTarget extends Command {
     		centerx = Robot.INSTANCE.visionSubsystem.getCenterX();
     		System.out.println("centerx: " + centerx);
     	}
-    	turn = centerx - (RobotMap.imgWidth / 2);
     	System.out.println("turn: " + turn);
     	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, turn * 0.004);
     	//TODO use different constant for urning if in speed or strength mode
@@ -56,4 +58,17 @@ public class centerOnTarget extends Command {
     protected void interrupted() {
     	Robot.INSTANCE.driveSubsystem.arcadeDrive(0, 0);
     }
+
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return centerx;
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		turn = output;
+	}
+	
 }

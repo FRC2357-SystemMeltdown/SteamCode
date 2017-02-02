@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
  *
  */
 public class PneumaticSub extends Subsystem {
-	 DoubleSolenoid solenoid1 = new DoubleSolenoid(1,0);
-	 DoubleSolenoid solenoid2 = new DoubleSolenoid(3,2);
+	 DoubleSolenoid solenoid1 = new DoubleSolenoid(5,4);
 	 Compressor compressor = new Compressor(0);
 	 PowerDistributionPanel PDP = new PowerDistributionPanel();
 	 
@@ -21,19 +20,19 @@ public class PneumaticSub extends Subsystem {
 	 public void shiftSpeed(/*DoubleSolenoid solenoid*/)
 	 {
 		solenoid1.set(DoubleSolenoid.Value.kForward); 
-		solenoid2.set(DoubleSolenoid.Value.kReverse);
+		
 	 }
 	 
 	 public void shiftPower(/*DoubleSolenoid solenoid*/)
 	 {
 		 solenoid1.set(DoubleSolenoid.Value.kReverse);
-		 solenoid2.set(DoubleSolenoid.Value.kForward);
+		
 	 }
 	 
 	 public void stopPistonSol()
 	 {
 		 solenoid1.set(DoubleSolenoid.Value.kOff);
-		 solenoid2.set(DoubleSolenoid.Value.kOff);
+		
 	 }
 	 
     public void initDefaultCommand() {
