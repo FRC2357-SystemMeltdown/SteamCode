@@ -48,11 +48,12 @@ public class VisionSub extends Subsystem {
         	
             
             visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
-                if (!pipeline.filterContoursOutput().isEmpty()) {
-                    Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+                if (!pipeline.filterContoursOutput().isEmpty() && pipeline.filterContoursOutput().size() >= 2) {
+                    Rect r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+                    Rect r2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
                     synchronized (imgLock) {
-                        centerX = r.x + (r.width / 2);
-                        System.out.println("vscenterX: " + centerX + " vsRectX: " + r.x + " vsRectWidth: " + r.width);
+                        centerX = (((r1.x + (r1.width / 2)) + ((r2.x + r2.width) - (r2.width / 2))) / 2);
+                        System.out.println("vscenterX: " + centerX + " vsRect1X: " + r1.x + " vsRect1Width: " + r1.width);
                     }                       
                     /*try {
 						visionThread.sleep(100);
