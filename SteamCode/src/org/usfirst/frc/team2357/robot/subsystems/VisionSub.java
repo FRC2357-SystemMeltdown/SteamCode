@@ -40,9 +40,12 @@ public class VisionSub extends Subsystem {
         {
         	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         	camera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
-            /*camera.setExposureManual(25);
+            camera.setExposureManual(25);
             camera.setBrightness(25);
-            camera.setWhiteBalanceManual(4500);*/
+            camera.setWhiteBalanceManual(4500);
+        	//camera.setExposureHoldCurrent();
+        	//camera.setWhiteBalanceHoldCurrent();
+        	
             
             visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
                 if (!pipeline.filterContoursOutput().isEmpty()) {
@@ -51,12 +54,12 @@ public class VisionSub extends Subsystem {
                         centerX = r.x + (r.width / 2);
                         System.out.println("vscenterX: " + centerX + " vsRectX: " + r.x + " vsRectWidth: " + r.width);
                     }                       
-                    try {
+                    /*try {
 						visionThread.sleep(100);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
                 }
             	
             	/*Mat source = new Mat();

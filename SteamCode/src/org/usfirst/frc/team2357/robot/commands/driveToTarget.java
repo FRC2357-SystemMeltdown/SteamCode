@@ -24,9 +24,10 @@ public class driveToTarget extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	getPIDController().enable();
     	setSetpoint((RobotMap.imgWidth / 2));
-    	super.getPIDController().enable();
+    	//getPIDController().
+    	
     	//super.getPIDController().
     }
 
@@ -38,7 +39,7 @@ public class driveToTarget extends PIDCommand {
     		System.out.println("centerx: " + centerx);
     	}
     	System.out.println("turn: " + turn);
-    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, turn * 0.004);
+    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, -turn);
     	//TODO use different constant for urning if in speed or strength mode
     	
     }
