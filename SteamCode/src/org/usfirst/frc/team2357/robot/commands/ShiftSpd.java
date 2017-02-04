@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.XboxController;
 /**
  *
  */
-public class shiftSpd extends Command {
+public class ShiftSpd extends Command {
 	private static boolean switchStatus = false;
 
-    public shiftSpd() {
+    public ShiftSpd() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.INSTANCE.pneumaticSubsystem);
@@ -47,7 +47,7 @@ public class shiftSpd extends Command {
     }
     
     public static void setSwitchStatus(boolean switchStatus) {
-		shiftSpd.switchStatus = switchStatus;
+		ShiftSpd.switchStatus = switchStatus;
 	}
     
     public static boolean getSwitchStatus(){

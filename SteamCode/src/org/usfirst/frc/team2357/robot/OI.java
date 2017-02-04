@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-import org.usfirst.frc.team2357.robot.commands.driveToTarget;
-import org.usfirst.frc.team2357.robot.commands.shiftSpd;
-import org.usfirst.frc.team2357.robot.commands.switchGears;
+import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
+import org.usfirst.frc.team2357.robot.commands.ShiftSpd;
+import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -39,10 +39,10 @@ public class OI {
 	
 	public OI()
 	{
-		y.toggleWhenPressed(new switchGears());
+		y.toggleWhenPressed(new SwitchGears());
 		
 		
-		x.toggleWhenPressed(new driveToTarget(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd));
+		x.toggleWhenPressed(new DriveToTarget(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd));
 		//x.whileHeld(new driveToTarget());
 		
 		

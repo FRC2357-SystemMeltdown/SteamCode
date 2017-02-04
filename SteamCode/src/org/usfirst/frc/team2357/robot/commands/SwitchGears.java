@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class switchGears extends Command {
+public class SwitchGears extends Command {
 
-    public switchGears() {
+    public SwitchGears() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.INSTANCE.pneumaticSubsystem);

@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 /**
  *
  */
-public class driveToTarget extends PIDCommand {
+public class DriveToTarget extends PIDCommand {
 	
-	public driveToTarget(double p, double i, double d) {
+	public DriveToTarget(double p, double i, double d) {
 		super(p, i, d);
 		// TODO Auto-generated constructor stub
 		requires(Robot.INSTANCE.driveSubsystem);
