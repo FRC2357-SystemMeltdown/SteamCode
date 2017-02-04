@@ -8,6 +8,7 @@ import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
+import org.usfirst.frc.team2357.robot.Config;
 
 //import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSource;
@@ -30,11 +31,11 @@ public class Robot extends IterativeRobot {
 	public static Robot INSTANCE;
 	public final DriveSub driveSubsystem = new DriveSub();
 	public OI oi;
-	public Config config = new Config();
 	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
 	public VisionSub visionSubsystem = new VisionSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Config> driveMode = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		
+		SmartDashboard.putData("Drive Mode", driveMode);
  	}
 
 	/**
@@ -109,6 +110,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		if (driveMode != null){
+			Config.setDriveMode(true);
+		}
 	}
 
 	/**
