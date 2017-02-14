@@ -9,23 +9,23 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 /**
  *
  */
-public class DriveToTarget extends PIDCommand {
+public class DriveToTarget extends Command {
 	
-	public DriveToTarget(double p, double i, double d) {
-		super(p, i, d);
+	public DriveToTarget() {
+		
 		// TODO Auto-generated constructor stub
 		requires(Robot.INSTANCE.driveSubsystem);
     	requires(Robot.INSTANCE.visionSubsystem);
 	}
 
 	private double centerx;
+	private static final double imgCenter = (RobotMap.imgWidth / 2);
 	private double turn;
 
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	getPIDController().enable();
-    	setSetpoint((RobotMap.imgWidth / 2));
+    	
     	//getPIDController().
     	
     	//super.getPIDController().
@@ -38,8 +38,18 @@ public class DriveToTarget extends PIDCommand {
     		centerx = Robot.INSTANCE.visionSubsystem.getCenterX();
     		System.out.println("centerx: " + centerx);
     	}
-    	System.out.println("turn: " + turn);
-    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, -turn);
+    	
+    	double turnRatio = (centerx / imgCenter) - 1;
+    	double turnAng = turnRatio * RobotMap.cameraFOV;
+    	
+    	Robot.INSTANCE.driveSubsystem.turnAngle(turnAng);
+    	
+    	
+    	
+    	//Camera FOV = 60.630570071
+    	
+    	//System.out.println("turn: " + turn);
+    	//Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, -turn);
     	//TODO use different constant for urning if in speed or strength mode
     	
     }
@@ -60,16 +70,6 @@ public class DriveToTarget extends PIDCommand {
     	Robot.INSTANCE.driveSubsystem.arcadeDrive(0, 0);
     }
 
-	@Override
-	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return centerx;
-	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
-		turn = output;
-	}
+	
 	
 }

@@ -29,7 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static Robot INSTANCE;
-	public final DriveSub driveSubsystem = new DriveSub();
+	public final DriveSub driveSubsystem = new DriveSub(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd);
 	public OI oi;
 	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
 	public VisionSub visionSubsystem = new VisionSub();

@@ -42,7 +42,7 @@ public class OI {
 		y.toggleWhenPressed(new SwitchGears());
 		
 		
-		x.toggleWhenPressed(new DriveToTarget(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd));
+		x.toggleWhenPressed(new DriveToTarget());
 		//x.whileHeld(new driveToTarget());
 		
 		

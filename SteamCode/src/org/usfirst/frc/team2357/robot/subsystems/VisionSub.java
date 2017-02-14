@@ -55,12 +55,12 @@ public class VisionSub extends Subsystem {
                         centerX = (((r1.x + (r1.width / 2)) + ((r2.x + r2.width) - (r2.width / 2))) / 2);
                         System.out.println("vscenterX: " + centerX + " vsRect1X: " + r1.x + " vsRect1Width: " + r1.width);
                     }                       
-                    /*try {
-						visionThread.sleep(100);
+                    try {
+						VisionThread.sleep(100);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}*/
+					}
                 }
             	
             	/*Mat source = new Mat();
