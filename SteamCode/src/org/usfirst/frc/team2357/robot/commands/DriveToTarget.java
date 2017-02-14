@@ -43,6 +43,7 @@ public class DriveToTarget extends Command {
     	double turnAng = turnRatio * RobotMap.cameraFOV;
     	
     	Robot.INSTANCE.driveSubsystem.turnAngle(turnAng);
+    	Robot.INSTANCE.driveSubsystem.getTurnRate();
     	
     	
     	

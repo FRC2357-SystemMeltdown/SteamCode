@@ -91,6 +91,10 @@ public class DriveSub extends PIDSubsystem {
     	return ahrs.getYaw();
 	}
     
+    public double getTurnRate() {
+		return turnRate;
+	}
+    
     @Override
     protected double returnPIDInput() {
 		// TODO Auto-generated method stub
