@@ -30,8 +30,11 @@ public class VisionSub extends Subsystem {
 	private VisionThread visionThread;
 	
 	private final Object imgLock = new Object();
+	private static final double imgCenter = (RobotMap.imgWidth / 2);
 	private double centerX = 0.0;
 	public double turnOutput;
+	private double turnRatio;
+	public double turnAng;
 	
 	//private VideoCapture videoCapture = new VideoCapture(0);
         
@@ -54,14 +57,18 @@ public class VisionSub extends Subsystem {
                     synchronized (imgLock) {
                         centerX = (((r1.x + (r1.width / 2)) + ((r2.x + r2.width) - (r2.width / 2))) / 2);
                         System.out.println("vscenterX: " + centerX + " vsRect1X: " + r1.x + " vsRect1Width: " + r1.width);
+                        
+                        turnRatio = (centerX / imgCenter) - 1;
+                    	turnAng = turnRatio * RobotMap.cameraFOV;
                     }                       
-                    try {
-						VisionThread.sleep(100);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                   
                 }
+                try {
+					VisionThread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             	
             	/*Mat source = new Mat();
             	Mat output = new Mat();
@@ -108,10 +115,8 @@ public class VisionSub extends Subsystem {
 			return imgLock;
 		}
         
-        public double getTurnOutput() {
-			return turnOutput;
-			//TODO make command run drive method and turn to (-0.6, turn * 0.005)
-			//See Screensteps on utilizing GRIP generated code
+        public double getTurnAng() {
+			return turnAng;
 		}
 
     // Put methods for controlling this subsystem

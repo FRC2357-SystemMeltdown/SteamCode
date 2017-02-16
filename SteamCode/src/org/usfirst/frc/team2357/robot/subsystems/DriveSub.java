@@ -1,25 +1,24 @@
 package org.usfirst.frc.team2357.robot.subsystems;
 
-import org.usfirst.frc.team2357.robot.RobotMap;
 import org.usfirst.frc.team2357.robot.Config;
-import org.usfirst.frc.team2357.robot.commands.*;
+import org.usfirst.frc.team2357.robot.RobotMap;
+import org.usfirst.frc.team2357.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team2357.robot.commands.TankDriveCommand;
 
 import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort.Port;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 
 /**
  *
  */
-public class DriveSub extends PIDSubsystem {
+public class DriveSub extends Subsystem implements PIDOutput {
 	private CANTalon leftDrive = new CANTalon(RobotMap.leftDrive1);
 	private CANTalon rightDrive = new CANTalon(RobotMap.rightDrive1);
 	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive2);
@@ -32,12 +31,22 @@ public class DriveSub extends PIDSubsystem {
 	
 	
 	public DriveSub(double p, double i, double d){
-		super(p,i,d);
+		super();
+		turnController = new PIDController(p, i, d, 0.0, ahrs, this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
 		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
 		turnController.setContinuous(true);
 		
+		leftDrive.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		leftDrive.changeControlMode(CANTalon.TalonControlMode.Position);
+		leftDrive.configEncoderCodesPerRev(128);
+		leftDrive.setControlMode(0);
+		
+		rightDrive.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		rightDrive.changeControlMode(CANTalon.TalonControlMode.Position);
+		rightDrive.configEncoderCodesPerRev(128);
+		rightDrive.setControlMode(0);
 		
 		
 		leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -69,7 +78,8 @@ public class DriveSub extends PIDSubsystem {
     public void tankDrive(double leftValue, double rightValue){
     	robotDrive.tankDrive(leftValue, rightValue);
     }
-    public void stop() {
+    public void stopPID() {
+    	turnController.disable();
     	arcadeDrive(0.0, 0.0);
     }
     
@@ -80,30 +90,16 @@ public class DriveSub extends PIDSubsystem {
     	turnController.setSetpoint(angle);
 	}
     
-    @Override
-    public double getSetpoint() {
-    	// TODO Auto-generated method stub
-    	return super.getSetpoint();
+    public boolean turnIsOnTarget() {
+    	return turnController.onTarget();
     }
-    
-    private double getYaw() {
-		// TODO Auto-generated method stub
-    	return ahrs.getYaw();
-	}
     
     public double getTurnRate() {
 		return turnRate;
 	}
-    
-    @Override
-    protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return ahrs.pidGet();
-	}
 
 	@Override
-	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
+	public void pidWrite(double output) {
 		turnRate = output;
 	}
      
