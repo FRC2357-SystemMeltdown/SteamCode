@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import org.usfirst.frc.team2357.robot.commands.ClimbUp;
+import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 
@@ -39,10 +41,13 @@ public class OI {
 	public OI()
 	{
 		y.toggleWhenPressed(new SwitchGears());
+		b.toggleWhenPressed(new ClimbUp());
 		
 		
-		x.toggleWhenPressed(new DriveToTarget());
+		//x.toggleWhenPressed(new DriveToTarget());
 		//x.whileHeld(new driveToTarget());
+		
+		a.whileHeld(new DispenseGear());
 		
 		
 		

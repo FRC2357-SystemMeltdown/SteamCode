@@ -7,35 +7,33 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class TurnToVisionAngle extends Command {
-	private double targetAngle = 0.0;
-	public TurnToVisionAngle() {
-		requires(Robot.INSTANCE.driveSubsystem);
-		
-		
-	}
-	
+public class DispenseGear extends Command {
+
+	private double timeCheck;
+    public DispenseGear() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.INSTANCE.gearSubsystem);
+    }
+
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//targetAngle = Robot.INSTANCE.visionSubsystem.getTurnAng();
-    	Robot.INSTANCE.driveSubsystem.turnAngle(targetAngle);
+    	timeCheck = System.currentTimeMillis();
     }
-    
+
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.INSTANCE.driveSubsystem.arcadeDrive(
-    			0.0,
-    			Robot.INSTANCE.driveSubsystem.getTurnRate());
+    	Robot.INSTANCE.gearSubsystem.gearOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.INSTANCE.driveSubsystem.turnIsOnTarget();
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.INSTANCE.driveSubsystem.stopPID();
+    	Robot.INSTANCE.gearSubsystem.gearIn();
     }
 
     // Called when another command which requires one or more of the same
@@ -43,7 +41,4 @@ public class TurnToVisionAngle extends Command {
     protected void interrupted() {
     	end();
     }
-
-	
-	
 }

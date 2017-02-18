@@ -3,8 +3,10 @@ package org.usfirst.frc.team2357.robot;
 
 
 
+import org.usfirst.frc.team2357.robot.subsystems.ClimberSub;
 //import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
+import org.usfirst.frc.team2357.robot.subsystems.GearSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
@@ -32,7 +34,9 @@ public class Robot extends IterativeRobot {
 	public final DriveSub driveSubsystem = new DriveSub(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd);
 	public OI oi;
 	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
+	public GearSub gearSubsystem = new GearSub();
 	public VisionSub visionSubsystem = new VisionSub();
+	public ClimberSub climberSubsystem = new ClimberSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	SendableChooser<Config> driveMode = new SendableChooser<>();
@@ -50,6 +54,8 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Drive Mode", driveMode);
+		
+		
  	}
 
 	/**
@@ -110,9 +116,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		if (driveMode != null){
-			Config.setDriveMode(true);
-		}
+		//if (driveMode != null){
+		//	Config.setDriveMode(true);
+		//}
 	}
 
 	/**

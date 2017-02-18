@@ -13,6 +13,14 @@ public class PneumaticSub extends Subsystem {
 	 Compressor compressor = new Compressor(0);
 	 PowerDistributionPanel PDP = new PowerDistributionPanel();
 	 
+	 /*public PneumaticSub() {
+		// TODO Auto-generated constructor stub
+		 if(solenoid1.get() != DoubleSolenoid.Value.kReverse)
+		 {
+			 shiftPower();
+		 }
+	}*/
+	 
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
