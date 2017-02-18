@@ -104,5 +104,9 @@ public class OI {
 		return driveController.getX(Hand.kLeft);
 	}
 	
+	public double getSplitArdcadeDriveTurnValue()
+	{
+		return driveController.getX(Hand.kRight);
+	}
 
 }

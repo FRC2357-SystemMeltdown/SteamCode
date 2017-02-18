@@ -3,6 +3,7 @@ package org.usfirst.frc.team2357.robot.subsystems;
 import org.usfirst.frc.team2357.robot.Config;
 import org.usfirst.frc.team2357.robot.RobotMap;
 import org.usfirst.frc.team2357.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team2357.robot.commands.SplitAcrcadeDriveCommand;
 import org.usfirst.frc.team2357.robot.commands.TankDriveCommand;
 
 import com.ctre.CANTalon;
@@ -64,10 +65,12 @@ public class DriveSub extends Subsystem implements PIDOutput {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	if (Config.driveMode == true){
+    	if (Config.driveMode == 0){
     		setDefaultCommand(new ArcadeDriveCommand());
-    	}else{
+    	}else if(Config.driveMode == 1){
     		setDefaultCommand(new TankDriveCommand());
+    	}else{
+    		setDefaultCommand(new SplitAcrcadeDriveCommand());
     	}
     }
     
