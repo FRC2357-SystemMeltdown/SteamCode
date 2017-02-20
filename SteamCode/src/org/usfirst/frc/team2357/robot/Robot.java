@@ -129,6 +129,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		//System.out.println(visionSubsystem.);
+		driveSubsystem.printYaw();
+		driveSubsystem.printError();
+		driveSubsystem.printSetpoint();
+		System.out.println(driveSubsystem.getTurnRate());
 		
 	}
 

@@ -10,6 +10,7 @@ import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
+import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -44,6 +45,7 @@ public class OI {
 		y.toggleWhenPressed(new SwitchGears());
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
+		startButton.whenPressed(new TurnToFixedAngle(10.0));
 		
 		
 		//x.toggleWhenPressed(new DriveToTarget());
