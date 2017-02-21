@@ -26,7 +26,7 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	private CANTalon rightDrive = new CANTalon(RobotMap.rightDrive1);
 	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive2);
 	private CANTalon rightDriveSlave = new CANTalon(RobotMap.rightDrive2);
-	private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
+	private RobotDrive robotDrive = new RobotDrive(getLeftDrive(), getRightDrive());
 	private AHRS ahrs;
 	private PIDController turnController;
 	
@@ -50,13 +50,17 @@ public class DriveSub extends Subsystem implements PIDOutput {
 		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
 		turnController.setContinuous(true);
 		
-		leftDrive.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		leftDrive.configEncoderCodesPerRev(128);
-		leftDrive.setControlMode(0);
-		rightDrive.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-		rightDrive.configEncoderCodesPerRev(128);
-		rightDrive.setControlMode(0);
-	
+		getLeftDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		getLeftDrive().configEncoderCodesPerRev(128);
+		getLeftDrive().setControlMode(0);
+		leftDrive.setAllowableClosedLoopErr(50);
+		getLeftDrive().setPID(0.6, 0.0, 0.0);
+		getRightDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		getRightDrive().configEncoderCodesPerRev(128);
+		getRightDrive().setControlMode(0);
+		rightDrive.setAllowableClosedLoopErr(50);
+		getRightDrive().setPID(0.6, 0.0, 0.0);
+		
 		leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 		leftDriveSlave.set(RobotMap.leftDrive1);
 		//leftDriveSlave.reverseOutput(true);
@@ -95,9 +99,9 @@ public class DriveSub extends Subsystem implements PIDOutput {
     
     public void turnAngle(double angle) {
 		// TODO Auto-generated method stub
-    	ahrs.reset();
-    	System.out.println(ahrs.getYaw() + " = yaw");
-    	System.out.println(angle + " = angle");
+    	ahrs.zeroYaw();
+    	//System.out.println(ahrs.getYaw() + " = yaw");
+    	//System.out.println(angle + " = angle");
     	turnController.reset();
     			
     	turnController.enable();
@@ -119,24 +123,31 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	
 	public void enablePositionalDrive()
 	{
-		leftDrive.changeControlMode(CANTalon.TalonControlMode.Position);
-		leftDrive.setVoltageRampRate(0);
-		leftDrive.setEncPosition(encPosition);
-		rightDrive.changeControlMode(CANTalon.TalonControlMode.Position);
-		rightDrive.setVoltageRampRate(0);
-		rightDrive.setEncPosition(encPosition);
+		
+		getLeftDrive().changeControlMode(CANTalon.TalonControlMode.Position);
+		getLeftDrive().setVoltageRampRate(0);
+		getLeftDrive().setEncPosition(0);
+		getRightDrive().changeControlMode(CANTalon.TalonControlMode.Position);
+		getRightDrive().setVoltageRampRate(0);
+		getRightDrive().setEncPosition(0);
 	}
 	public void disablePositionalDrive() {
 		// TODO Auto-generated method stub
-		leftDrive.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
-		rightDrive.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		getLeftDrive().changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		getRightDrive().changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 	}
 	
-	public void moveDist(int inchesForward)
+	
+	
+	public void moveDist()
 	{
-		encPosition += inchesForward;
-		leftDrive.setEncPosition(encPosition);
-		rightDrive.setEncPosition(encPosition);
+		getLeftDrive().setSetpoint(-encPosition);
+		getRightDrive().setSetpoint(encPosition);		
+	}
+	
+	public void setMoveDistance(int dist)
+	{
+		encPosition = dist;
 	}
      
 	public void printYaw()
@@ -156,6 +167,37 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	public boolean isOnTarget()
 	{
 		return(turnController.onTarget());
+	}
+	
+	public boolean isPositionOnTarget()
+	{
+		return((Math.abs(leftDrive.getClosedLoopError()) <= 50) && (Math.abs(rightDrive.getClosedLoopError()) <= 50));
+	}
+
+	public CANTalon getLeftDrive() {
+		return leftDrive;
+	}
+
+	public void setLeftDrive(CANTalon leftDrive) {
+		this.leftDrive = leftDrive;
+	}
+
+	public CANTalon getRightDrive() {
+		return rightDrive;
+	}
+
+	public void setRightDrive(CANTalon rightDrive) {
+		this.rightDrive = rightDrive;
+	}
+	
+	public void printLeftDriveErr()
+	{
+		System.out.println("LeftErr:" + leftDrive.getError());
+	}
+	
+	public void printRightDriveErr()
+	{
+		System.out.println("RightErr:" + rightDrive.getError());	
 	}
 }
 

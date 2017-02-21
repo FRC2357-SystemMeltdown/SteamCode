@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team2357.robot.commands.ClimbDown;
 import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
+import org.usfirst.frc.team2357.robot.commands.DriveDistance;
 import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
@@ -52,7 +53,7 @@ public class OI {
 		//x.whileHeld(new driveToTarget());
 		
 		a.whileHeld(new DispenseGear());
-		
+		leftBumper.whenPressed(new DriveDistance(100));
 		
 		
 	}

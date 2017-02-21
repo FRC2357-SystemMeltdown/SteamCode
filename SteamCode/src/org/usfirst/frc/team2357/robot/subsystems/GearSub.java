@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2357.robot.subsystems;
 
 import org.usfirst.frc.team2357.robot.RobotMap;
+import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
@@ -46,6 +47,7 @@ public class GearSub extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	
     }
 }
 

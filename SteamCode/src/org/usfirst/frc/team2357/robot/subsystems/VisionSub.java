@@ -41,22 +41,30 @@ public class VisionSub extends Subsystem {
         
         public VisionSub()
         {
-        	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        	camera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
-            camera.setExposureManual(25);
-            camera.setBrightness(25);
-            camera.setWhiteBalanceManual(4500);
+        	UsbCamera visionCamera = CameraServer.getInstance().startAutomaticCapture(0);
+        	//UsbCamera rearCamera = CameraServer.getInstance().startAutomaticCapture(1);
+        	UsbCamera rearCamera = CameraServer.getInstance().startAutomaticCapture("rearCamera", 1);
+        	rearCamera.setFPS(20);
+        	rearCamera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
+        	
+        	visionCamera.setFPS(20);
+        	visionCamera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
+            visionCamera.setExposureManual(25);
+            visionCamera.setBrightness(25);
+            visionCamera.setWhiteBalanceManual(4500);
+            
+            
         	//camera.setExposureHoldCurrent();
         	//camera.setWhiteBalanceHoldCurrent();
         	
             
-            visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
+            visionThread = new VisionThread(visionCamera, new GripPipeline(), pipeline -> {
                 if (!pipeline.filterContoursOutput().isEmpty() && pipeline.filterContoursOutput().size() >= 2) {
                     Rect r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
                     Rect r2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
                     synchronized (imgLock) {
                         centerX = (((r1.x + (r1.width / 2)) + ((r2.x + r2.width) - (r2.width / 2))) / 2);
-                        System.out.println("vscenterX: " + centerX + " vsRect1X: " + r1.x + " vsRect1Width: " + r1.width);
+                        //System.out.println("vscenterX: " + centerX + " vsRect1X: " + r1.x + " vsRect1Width: " + r1.width);
                         
                         turnRatio = (centerX / imgCenter) - 1;
                     	turnAng = turnRatio * RobotMap.cameraFOV;
