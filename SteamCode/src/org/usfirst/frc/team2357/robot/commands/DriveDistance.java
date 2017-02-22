@@ -10,14 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveDistance extends Command {
 
-	private int distance;
+	private double distance;
 	
-    public DriveDistance(int inches) {
+    public DriveDistance(double inches) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.INSTANCE.driveSubsystem);
     	
-    	distance = inches;
+    	distance = ((inches/18.85) * 5.4);
     }
 
     // Called just before this Command runs the first time

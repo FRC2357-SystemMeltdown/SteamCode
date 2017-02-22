@@ -35,6 +35,7 @@ public class TurnToFixedAngle extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.INSTANCE.driveSubsystem.stopPID();
+    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, 0.0);
     }
 
     // Called when another command which requires one or more of the same

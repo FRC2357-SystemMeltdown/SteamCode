@@ -24,6 +24,7 @@ public class GearSub extends Subsystem {
 	private DigitalInput limitSwitch1 = new DigitalInput(0);
 	private DigitalInput limitSwitch2 = new DigitalInput(1);
 	
+	
 	public GearSub() {
 		// TODO Auto-generated constructor stub
 		gearIn();
@@ -38,10 +39,26 @@ public class GearSub extends Subsystem {
 		rightServo.set(rightGearSetPoint);
 	}
 	
+
 	public void gearIn() {
 		// TODO Auto-generated method stub
 		leftServo.set(leftGearReturnPoint);
 		rightServo.set(rightGearReturnPoint);
+	}
+	
+	public boolean isPegged()
+	{
+		return (limitSwitch1.get() || limitSwitch2.get());
+	}
+	
+	public boolean isLeftServoOnTarget()
+	{
+		return(leftServo.get() == leftServo.get());
+	}
+	
+	public boolean isRightServoOnTarget()
+	{
+		return(rightServo.get() == rightServo.getRaw());
 	}
 
     public void initDefaultCommand() {

@@ -28,7 +28,7 @@ public class DispenseGear extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return false;/*(Robot.INSTANCE.gearSubsystem.isLeftServoOnTarget() && Robot.INSTANCE.gearSubsystem.isRightServoOnTarget());*/
     }
 
     // Called once after isFinished returns true

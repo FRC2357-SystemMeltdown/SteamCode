@@ -31,7 +31,7 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	private PIDController turnController;
 	
 	private double turnRate;
-	private int encPosition = 0;
+	private double encSetpoint = 0;
 	
 	
 	public DriveSub(double p, double i, double d){
@@ -54,12 +54,12 @@ public class DriveSub extends Subsystem implements PIDOutput {
 		getLeftDrive().configEncoderCodesPerRev(128);
 		getLeftDrive().setControlMode(0);
 		leftDrive.setAllowableClosedLoopErr(50);
-		getLeftDrive().setPID(0.6, 0.0, 0.0);
+		getLeftDrive().setPID(0.5, 0.0005, 0.0);
 		getRightDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		getRightDrive().configEncoderCodesPerRev(128);
 		getRightDrive().setControlMode(0);
 		rightDrive.setAllowableClosedLoopErr(50);
-		getRightDrive().setPID(0.6, 0.0, 0.0);
+		getRightDrive().setPID(0.5, 0.0005, 0.0);
 		
 		leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 		leftDriveSlave.set(RobotMap.leftDrive1);
@@ -99,16 +99,26 @@ public class DriveSub extends Subsystem implements PIDOutput {
     
     public void turnAngle(double angle) {
 		// TODO Auto-generated method stub
-    	ahrs.zeroYaw();
+    	//ahrs.zeroYaw();
     	//System.out.println(ahrs.getYaw() + " = yaw");
     	//System.out.println(angle + " = angle");
     	turnController.reset();
     			
     	turnController.enable();
-    	turnController.setSetpoint(angle);
+    	if((ahrs.getYaw() + angle) > 180)
+    	{
+    		turnController.setSetpoint(ahrs.getYaw() + angle - 360);
+    	} else if((ahrs.getYaw() + angle) < -180)
+    	{
+    		turnController.setSetpoint(ahrs.getYaw() + angle + 360);
+    	} else {
+    		turnController.setSetpoint(ahrs.getYaw() + angle);
+        	
+    	}
 	}
     
     public boolean turnIsOnTarget() {
+    	System.out.println("TurnCtrlrErr:" + turnController.getError());
     	return turnController.onTarget();
     }
     
@@ -116,6 +126,9 @@ public class DriveSub extends Subsystem implements PIDOutput {
 		return turnRate;
 	}
 
+    
+    
+    
 	@Override
 	public void pidWrite(double output) {
 		turnRate = output;
@@ -141,13 +154,13 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	
 	public void moveDist()
 	{
-		getLeftDrive().setSetpoint(-encPosition);
-		getRightDrive().setSetpoint(encPosition);		
+		getLeftDrive().setSetpoint(-encSetpoint);
+		getRightDrive().setSetpoint(encSetpoint);		
 	}
 	
-	public void setMoveDistance(int dist)
+	public void setMoveDistance(double dist)
 	{
-		encPosition = dist;
+		encSetpoint = dist;
 	}
      
 	public void printYaw()

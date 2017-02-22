@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData("Drive Mode", driveMode);
-		
+		//visionSubsystem.startVisionThread();
 		
  	}
 
@@ -72,6 +72,8 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
+	
+	
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
@@ -87,6 +89,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
+		
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -127,12 +130,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
+		//System.out.println("TurnAng:" + visionSubsystem.getTurnAng());
+		System.out.println("TurnOutput:" + driveSubsystem.getTurnRate());
 		//System.out.println(visionSubsystem.);
 		driveSubsystem.printYaw();
-		driveSubsystem.printError();
 		driveSubsystem.printSetpoint();
-		System.out.println(driveSubsystem.getTurnRate());
+		/*driveSubsystem.printError();
+		driveSubsystem.printSetpoint();
+		System.out.println(driveSubsystem.getTurnRate());*/
 		
 	}
 
@@ -142,5 +147,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+	
+	private void getSmartDashboard() {
+		// TODO Auto-generated method stub
+		
 	}
 }

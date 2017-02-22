@@ -1,8 +1,13 @@
 package org.usfirst.frc.team2357.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+
+import org.usfirst.frc.team2357.robot.Robot;
+
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 //import org.usfirst.frc.team2357.robot.commands.pneumaticExtend;
 /**
@@ -28,12 +33,13 @@ public class PneumaticSub extends Subsystem {
 	 public void shiftSpeed(/*DoubleSolenoid solenoid*/)
 	 {
 		solenoid1.set(DoubleSolenoid.Value.kForward); 
-		
+		SmartDashboard.putString("Gearset", "HIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGHHIGH");
 	 }
 	 
 	 public void shiftPower(/*DoubleSolenoid solenoid*/)
 	 {
 		 solenoid1.set(DoubleSolenoid.Value.kReverse);
+		 SmartDashboard.putString("Gearset", "LOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOWLOW"); 
 		
 	 }
 	 

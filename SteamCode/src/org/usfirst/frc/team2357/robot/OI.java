@@ -12,6 +12,8 @@ import org.usfirst.frc.team2357.robot.commands.DriveDistance;
 import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
+import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
+import org.usfirst.frc.team2357.robot.triggers.PressurePlateTrigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -41,19 +43,22 @@ public class OI {
 	private Button leftStickButton = new JoystickButton(driveController, 9);
 	private Button rightStickButton = new JoystickButton(driveController, 10);
 	
+	private PressurePlateTrigger pressurePlateTrigger = new PressurePlateTrigger();
+	
 	public OI()
 	{
 		y.toggleWhenPressed(new SwitchGears());
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
-		startButton.whenPressed(new TurnToFixedAngle(10.0));
+		startButton.whenPressed(new TurnToVisionAngle());
+		pressurePlateTrigger.whenActive(new DispenseGear());
 		
 		
 		//x.toggleWhenPressed(new DriveToTarget());
 		//x.whileHeld(new driveToTarget());
 		
 		a.whileHeld(new DispenseGear());
-		leftBumper.whenPressed(new DriveDistance(100));
+		leftBumper.whenPressed(new DriveDistance(5.4));
 		
 		
 	}

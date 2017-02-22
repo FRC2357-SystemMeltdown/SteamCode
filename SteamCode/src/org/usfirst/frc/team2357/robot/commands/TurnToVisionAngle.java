@@ -11,13 +11,11 @@ public class TurnToVisionAngle extends Command {
 	private double targetAngle = 0.0;
 	public TurnToVisionAngle() {
 		requires(Robot.INSTANCE.driveSubsystem);
-		
-		
 	}
 	
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//targetAngle = Robot.INSTANCE.visionSubsystem.getTurnAng();
+    	targetAngle = Robot.INSTANCE.visionSubsystem.getTurnAng();
     	Robot.INSTANCE.driveSubsystem.turnAngle(targetAngle);
     }
     
@@ -36,6 +34,7 @@ public class TurnToVisionAngle extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.INSTANCE.driveSubsystem.stopPID();
+    	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, 0.0);
     }
 
     // Called when another command which requires one or more of the same
