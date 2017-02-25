@@ -12,43 +12,47 @@ import com.kauailabs.navx.frc.AHRS.SerialDataType;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 
 /**
  *
  */
-public class DriveSub extends Subsystem implements PIDOutput {
+public class DriveSub extends PIDSubsystem {
 	private CANTalon leftDrive = new CANTalon(RobotMap.leftDrive1);
 	private CANTalon rightDrive = new CANTalon(RobotMap.rightDrive1);
 	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive2);
 	private CANTalon rightDriveSlave = new CANTalon(RobotMap.rightDrive2);
 	private RobotDrive robotDrive = new RobotDrive(getLeftDrive(), getRightDrive());
-	private AHRS ahrs;
-	private PIDController turnController;
+
+	private Gyro gyro;
+	
 	
 	private double turnRate;
 	private double encSetpoint = 0;
 	
 	
 	public DriveSub(double p, double i, double d){
-		super();
-		try {
+		super(p,i,d);
+		/*try {
 			ahrs = new AHRS(SerialPort.Port.kUSB);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error instantiating AHRS...");
-		}
+		}*/
 		
 		//ahrs.reset();
-		turnController = new PIDController(p, i, d, 0.0, ahrs, this);
-		turnController.setInputRange(-180.0, 180.0);
-		turnController.setOutputRange(-1.0, 1.0);
-		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
-		turnController.setContinuous(true);
+		//getPIDController() = new PIDController(p, i, d, 0.0, gyro/*ahrs*/ , this);
+		getPIDController().setInputRange(0.0, 360.0);
+		getPIDController().setOutputRange(-1.0, 1.0);
+		getPIDController().setAbsoluteTolerance(RobotMap.PIDtol);
+		getPIDController().setContinuous(true);
 		
 		getLeftDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		getLeftDrive().configEncoderCodesPerRev(128);
@@ -93,7 +97,7 @@ public class DriveSub extends Subsystem implements PIDOutput {
     	robotDrive.tankDrive(leftValue, rightValue);
     }
     public void stopPID() {
-    	turnController.disable();
+    	getPIDController().disable();
     	arcadeDrive(0.0, 0.0);
     }
     
@@ -102,24 +106,24 @@ public class DriveSub extends Subsystem implements PIDOutput {
     	//ahrs.zeroYaw();
     	//System.out.println(ahrs.getYaw() + " = yaw");
     	//System.out.println(angle + " = angle");
-    	turnController.reset();
+    	getPIDController().reset();
     			
-    	turnController.enable();
-    	if((ahrs.getYaw() + angle) > 180)
+    	getPIDController().enable();
+    	/*if((ahrs.getYaw() + angle) > 180)
     	{
-    		turnController.setSetpoint(ahrs.getYaw() + angle - 360);
+    		getPIDController().setSetpoint(ahrs.getYaw() + angle - 360);
     	} else if((ahrs.getYaw() + angle) < -180)
     	{
-    		turnController.setSetpoint(ahrs.getYaw() + angle + 360);
+    		getPIDController().setSetpoint(ahrs.getYaw() + angle + 360);
     	} else {
-    		turnController.setSetpoint(ahrs.getYaw() + angle);
+    		getPIDController().setSetpoint(ahrs.getYaw() + angle);
         	
-    	}
+    	}*/
 	}
     
     public boolean turnIsOnTarget() {
-    	System.out.println("TurnCtrlrErr:" + turnController.getError());
-    	return turnController.onTarget();
+    	System.out.println("TurnCtrlrErr:" + getPIDController().getError());
+    	return getPIDController().onTarget();
     }
     
     public double getTurnRate() {
@@ -129,10 +133,12 @@ public class DriveSub extends Subsystem implements PIDOutput {
     
     
     
-	@Override
+	/*@Override
 	public void pidWrite(double output) {
 		turnRate = output;
-	}
+	}*/
+    
+    
 	
 	public void enablePositionalDrive()
 	{
@@ -165,21 +171,22 @@ public class DriveSub extends Subsystem implements PIDOutput {
      
 	public void printYaw()
 	{
-		System.out.println("Yaw:" + ahrs.getYaw());
+		//System.out.println("Yaw:" + ahrs.getYaw());
+		System.out.println("Yaw:" + gyro.getAngle());
 	}
 	
 	public void printError()
 	{
-		System.out.println("Error:" + turnController.getError());
+		System.out.println("Error:" + getPIDController().getError());
 	}
 	public void printSetpoint()
 	{
-		System.out.println("Setpoint:" + turnController.getSetpoint());
+		System.out.println("Setpoint:" + getPIDController().getSetpoint());
 	}
 	
 	public boolean isOnTarget()
 	{
-		return(turnController.onTarget());
+		return(getPIDController().onTarget());
 	}
 	
 	public boolean isPositionOnTarget()
@@ -211,6 +218,18 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	public void printRightDriveErr()
 	{
 		System.out.println("RightErr:" + rightDrive.getError());	
+	}
+
+	@Override
+	protected double returnPIDInput() {
+		// TODO Auto-generated method stub
+		return gyro.getAngle();
+	}
+
+	@Override
+	protected void usePIDOutput(double output) {
+		// TODO Auto-generated method stub
+		turnRate = output;
 	}
 }
 

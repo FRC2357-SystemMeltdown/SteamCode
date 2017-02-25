@@ -43,9 +43,9 @@ public class VisionSub extends Subsystem {
         {
         	UsbCamera visionCamera = CameraServer.getInstance().startAutomaticCapture(0);
         	//UsbCamera rearCamera = CameraServer.getInstance().startAutomaticCapture(1);
-        	UsbCamera rearCamera = CameraServer.getInstance().startAutomaticCapture("rearCamera", 1);
+        	/*UsbCamera rearCamera = CameraServer.getInstance().startAutomaticCapture("rearCamera", 1);
         	rearCamera.setFPS(20);
-        	rearCamera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
+        	rearCamera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);*/
         	
         	visionCamera.setFPS(20);
         	visionCamera.setResolution(RobotMap.imgWidth, RobotMap.imgHeight);
