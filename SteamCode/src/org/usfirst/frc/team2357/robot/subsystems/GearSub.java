@@ -24,6 +24,8 @@ public class GearSub extends Subsystem {
 	private DigitalInput limitSwitch1 = new DigitalInput(0);
 	private DigitalInput limitSwitch2 = new DigitalInput(1);
 	
+	private boolean manualOverride = false;
+	
 	
 	public GearSub() {
 		// TODO Auto-generated constructor stub
