@@ -7,6 +7,7 @@ import org.usfirst.frc.team2357.robot.subsystems.ClimberSub;
 //import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
 import org.usfirst.frc.team2357.robot.subsystems.GearSub;
+import org.usfirst.frc.team2357.robot.subsystems.GearSub2;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 	public OI oi;
 	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
 	public GearSub gearSubsystem = new GearSub();
+	public GearSub2 gearSubsystem2 = null; //new GearSub2();
 	public VisionSub visionSubsystem = new VisionSub();
 	public ClimberSub climberSubsystem = new ClimberSub();
 	Command autonomousCommand;
