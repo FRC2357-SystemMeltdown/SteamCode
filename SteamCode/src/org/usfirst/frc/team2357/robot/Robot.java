@@ -35,8 +35,8 @@ public class Robot extends IterativeRobot {
 	public final DriveSub driveSubsystem = new DriveSub(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd);
 	public OI oi;
 	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
-	public GearSub gearSubsystem = new GearSub();
-	public GearSub2 gearSubsystem2 = null; //new GearSub2();
+	public GearSub gearSubsystem = null; //new GearSub();
+	public GearSub2 gearSubsystem2 = new GearSub2();
 	public VisionSub visionSubsystem = new VisionSub();
 	public ClimberSub climberSubsystem = new ClimberSub();
 	Command autonomousCommand;
