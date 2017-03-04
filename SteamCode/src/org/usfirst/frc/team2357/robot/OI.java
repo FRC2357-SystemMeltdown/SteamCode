@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2357.robot.commands.ClimbDown;
 import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveDistance;
-import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
@@ -57,11 +57,13 @@ public class OI {
 	
 	public OI()
 	{
+		SmartDashboard.putNumber("TurnFixedAngle", 0.0);
+		
 		y.toggleWhenPressed(new SwitchGears());
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
 		startButton.toggleWhenPressed(new TurnToVisionAngle());
-		x.toggleWhenPressed(new TurnToFixedAngle(-10));
+		x.toggleWhenPressed(new TurnToFixedAngle(90.0));
 		pressurePlateTrigger.whileActive(new DispenseGear());
 		a.whileHeld(new DispenseGear());
 		//leftBumper.whenPressed(new DriveDistance(5.4));

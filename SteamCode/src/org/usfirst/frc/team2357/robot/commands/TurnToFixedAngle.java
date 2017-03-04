@@ -3,6 +3,7 @@ package org.usfirst.frc.team2357.robot.commands;
 import org.usfirst.frc.team2357.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -12,7 +13,7 @@ public class TurnToFixedAngle extends Command {
 	public TurnToFixedAngle(double angle) {
 		requires(Robot.INSTANCE.driveSubsystem);
 		
-		targetAngle = angle;
+		targetAngle = angle; //SmartDashboard.getNumber("TurnFixedAngle", 0.0);
 	}
 	
     // Called just before this Command runs the first time

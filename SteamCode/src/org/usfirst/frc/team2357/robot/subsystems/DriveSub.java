@@ -50,7 +50,7 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 		}*/
 		
 		//ahrs.reset();
-		turnController = new PIDController(p, i, d, 0.0, gyro , this);
+		turnController = new PIDController(p, i, d, 0.0, this , this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
 		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
@@ -125,6 +125,7 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
     	if((getGyroYaw() + angle) > 180)
     	{
     		turnController.setSetpoint(getGyroYaw() + angle - 360);
+    		
     	} else if((getGyroYaw() + angle) < -180)
     	{
     		turnController.setSetpoint(getGyroYaw() + angle + 360);
@@ -211,13 +212,15 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 	{
 		double in = gyro.getAngle();
 		double out = in;
-		if (Math.abs(in) > 180)
+		if (Math.abs(in) > 180.0)
 		{
 			if (in > 0)
 			{
-				out = (in - ((((int)in / 360) + 1) * 360));
+				//out = (in - ((((int)in / 360) + 1) * 360));
+				out = -180 + (Math.abs(in + 180) % 360);
 			} else if(in < 0) {
-				out = (in + ((((-(int)in) / 360) + 1) * 360));
+				//out = (in + ((((-(int)in) / 360) + 1) * 360));
+				out = 180 - (Math.abs(in + 180) % 360);
 			}
 		}
 		return out;
