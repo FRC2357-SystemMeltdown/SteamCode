@@ -1,6 +1,11 @@
 package org.usfirst.frc.team2357.robot.subsystems;
 
+import java.util.List;
+
+import javax.swing.plaf.metal.MetalFileChooserUI.FilterComboBoxRenderer;
+
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 //import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -59,14 +64,25 @@ public class VisionSub extends Subsystem {
         	
             
             visionThread = new VisionThread(visionCamera, new GripPipeline(), pipeline -> {
-                if (!pipeline.filterContoursOutput().isEmpty() && pipeline.filterContoursOutput().size() >= 2) {
-                    Rect r1 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
-                    Rect r2 = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
+            	List<MatOfPoint> contours = pipeline.filterContoursOutput();
+                if (!contours.isEmpty() && contours.size() >= 2) {
+                	MatOfPoint contour1 = contours.get(0);
+                	MatOfPoint contour2 = contours.get(1);
+                	for (int i = 2; i < contours.size(); i++) {
+                		MatOfPoint nextContour = contours.get(i);                		
+                		if(nextContour.elemSize() > contour1.elemSize()){
+                			contour1 = nextContour;
+                		} else if(nextContour.elemSize() > contour2.elemSize()){
+                			contour2 = nextContour;
+                		}
+                	}
+                    Rect r1 = Imgproc.boundingRect(contour1);
+                    Rect r2 = Imgproc.boundingRect(contour2);
                     synchronized (imgLock) {
                         centerX = (((r1.x + (r1.width / 2)) + ((r2.x + r2.width) - (r2.width / 2))) / 2);
                         //System.out.println("vscenterX: " + centerX + " vsRect1X: " + r1.x + " vsRect1Width: " + r1.width);
                         //System.out.println("True center:" + centerX);
-                        turnRatio = (centerX / imgCenter) - 1;
+                        turnRatio = (centerX / (RobotMap.imgWidth/2)) - 1;
                     	turnAng = turnRatio * RobotMap.cameraFOV;
                     }                       
                    

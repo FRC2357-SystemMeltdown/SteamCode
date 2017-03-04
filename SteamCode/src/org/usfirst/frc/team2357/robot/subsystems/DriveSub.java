@@ -33,7 +33,7 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 	private CANTalon rightDriveSlave = new CANTalon(RobotMap.rightDrive2);
 	private RobotDrive robotDrive = new RobotDrive(getLeftDrive(), getRightDrive());
 
-	private AnalogGyro gyro = new AnalogGyro(0);
+	private AnalogGyro gyro = new AnalogGyro(1);
 	private PIDController turnController;
 	
 	private double turnRate;
@@ -122,6 +122,16 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
     		turnController.setSetpoint(ahrs.getYaw() + angle);
         	
     	}*/
+    	if((getGyroYaw() + angle) > 180)
+    	{
+    		turnController.setSetpoint(getGyroYaw() + angle - 360);
+    	} else if((getGyroYaw() + angle) < -180)
+    	{
+    		turnController.setSetpoint(getGyroYaw() + angle + 360);
+    	} else {
+    		turnController.setSetpoint(getGyroYaw() + angle);
+        	
+    	}
 	}
     
     public boolean turnIsOnTarget() {

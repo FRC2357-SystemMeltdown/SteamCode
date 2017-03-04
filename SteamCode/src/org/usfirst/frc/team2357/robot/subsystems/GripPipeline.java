@@ -42,7 +42,7 @@ public class GripPipeline implements VisionPipeline {
 	@Override	public void process(Mat source0) {
 		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = source0;
-		double[] rgbThresholdRed = {69.0, 155.0};
+		double[] rgbThresholdRed = {0, 155.0};
 		double[] rgbThresholdGreen = {197.0, 255.0};
 		double[] rgbThresholdBlue = {135.0, 255.0};
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);

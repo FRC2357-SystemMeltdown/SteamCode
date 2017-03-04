@@ -60,7 +60,8 @@ public class OI {
 		y.toggleWhenPressed(new SwitchGears());
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
-		startButton.whenPressed(new TurnToVisionAngle());
+		startButton.toggleWhenPressed(new TurnToVisionAngle());
+		x.toggleWhenPressed(new TurnToFixedAngle(-10));
 		pressurePlateTrigger.whileActive(new DispenseGear());
 		a.whileHeld(new DispenseGear());
 		//leftBumper.whenPressed(new DriveDistance(5.4));
