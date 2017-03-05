@@ -1,13 +1,16 @@
-package org.usfirst.frc.team2357.robot.commands;
+package org.usfirst.frc.team2357.robot.AutonomousModes;
+
+import org.usfirst.frc.team2357.robot.commands.DriveDistance;
+import org.usfirst.frc.team2357.robot.commands.DriveRobot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutonomousMode extends CommandGroup {
+public class DriveBaseLine extends CommandGroup {
 
-    public AutonomousMode() {
+    public DriveBaseLine() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,5 +27,8 @@ public class AutonomousMode extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
+    	addSequential(new DriveRobot(0.5, 0.0, 5000)); //addSequential(new DriveDistance(100.0));
+    	
     }
 }

@@ -11,6 +11,7 @@ import org.usfirst.frc.team2357.robot.commands.ClimbDown;
 import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveDistance;
+import org.usfirst.frc.team2357.robot.commands.DriveRobot;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
@@ -63,9 +64,10 @@ public class OI {
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
 		startButton.toggleWhenPressed(new TurnToVisionAngle());
-		x.toggleWhenPressed(new TurnToFixedAngle(90.0));
+		x.toggleWhenPressed(new TurnToFixedAngle(30.0));
 		pressurePlateTrigger.whileActive(new DispenseGear());
 		a.whileHeld(new DispenseGear());
+		coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
 		//leftBumper.whenPressed(new DriveDistance(5.4));
 		
 		//coStart.toggleWhenPressed();

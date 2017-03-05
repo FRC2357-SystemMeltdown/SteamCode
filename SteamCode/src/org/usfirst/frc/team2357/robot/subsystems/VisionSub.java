@@ -39,6 +39,7 @@ public class VisionSub extends Subsystem {
 	private static final double imgCenter = 111.0;
 	private double centerX = 0.0;
 	public double turnOutput;
+	private boolean alignedToFeeder = false;
 	
 	public double turnAng;
 	
@@ -133,7 +134,15 @@ public class VisionSub extends Subsystem {
 			return turnAng;
 		}
         
-        public void startVisionThread()
+        public boolean isAlignedToFeeder() {
+			return alignedToFeeder;
+		}
+
+		public void setAlignedToFeeder(boolean alignedToFeeder) {
+			this.alignedToFeeder = alignedToFeeder;
+		}
+
+		public void startVisionThread()
         {
         	visionThread.start();
         }

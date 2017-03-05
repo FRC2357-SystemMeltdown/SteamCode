@@ -55,6 +55,7 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 		turnController.setOutputRange(-1.0, 1.0);
 		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
 		turnController.setContinuous(true);
+		turnController.setToleranceBuffer(5);
 		
 		
 		getLeftDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);

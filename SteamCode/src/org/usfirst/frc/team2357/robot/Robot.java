@@ -11,6 +11,7 @@ import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.Config;
+import org.usfirst.frc.team2357.robot.AutonomousModes.DriveBaseLine;
 
 //import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSource;
@@ -39,7 +40,7 @@ public class Robot extends IterativeRobot {
 	public ClimberSub climberSubsystem = new ClimberSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	SendableChooser<Config> driveMode = new SendableChooser<>();
+	//SendableChooser<Config> driveMode = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -50,10 +51,10 @@ public class Robot extends IterativeRobot {
 		INSTANCE = this;
 		
 		oi = new OI();
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		chooser.addDefault("Default Auto", new DriveBaseLine());
+		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putData("Drive Mode", driveMode);
+		//SmartDashboard.putData("Drive Mode", driveMode);
 		//visionSubsystem.startVisionThread();
 		
  	}
@@ -88,7 +89,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = (Command) chooser.getSelected();
 		
 
 		/*
