@@ -61,6 +61,7 @@ public class VisionSub extends Subsystem {
             visionCamera.setExposureManual(25);
             visionCamera.setBrightness(25);
             visionCamera.setWhiteBalanceManual(4500);
+
             
             
         	//camera.setExposureHoldCurrent();
@@ -134,7 +135,7 @@ public class VisionSub extends Subsystem {
 			return turnAng;
 		}
         
-        public boolean isAlignedToFeeder() {
+        public boolean searchingForFeeder() {
 			return alignedToFeeder;
 		}
 

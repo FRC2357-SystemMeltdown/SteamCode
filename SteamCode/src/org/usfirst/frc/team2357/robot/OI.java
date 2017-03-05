@@ -12,6 +12,7 @@ import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveDistance;
 import org.usfirst.frc.team2357.robot.commands.DriveRobot;
+import org.usfirst.frc.team2357.robot.commands.PingAlignToFeeder;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
@@ -70,7 +71,7 @@ public class OI {
 		coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
 		//leftBumper.whenPressed(new DriveDistance(5.4));
 		
-		//coStart.toggleWhenPressed();
+		coSelect.whenPressed(new PingAlignToFeeder());
 		
 		
 	}

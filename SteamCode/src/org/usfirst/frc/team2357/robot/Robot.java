@@ -16,6 +16,7 @@ import org.usfirst.frc.team2357.robot.AutonomousModes.DriveBaseLine;
 //import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	//SendableChooser<Config> driveMode = new SendableChooser<>();
+	public Preferences prefs;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -56,6 +58,22 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		//SmartDashboard.putData("Drive Mode", driveMode);
 		//visionSubsystem.startVisionThread();
+		
+		prefs = Preferences.getInstance();
+		prefs.getDouble("PegRLow", 0.0);
+		prefs.getDouble("PegRHigh", 155.0);
+		prefs.getDouble("PegGLow", 197.0);
+		prefs.getDouble("PegGHigh", 255.0);
+		prefs.getDouble("PegBLow", 135.0);
+		prefs.getDouble("PegBHigh", 255.0);
+		
+		prefs.getDouble("FeederRLow", 0.0);
+		prefs.getDouble("FeederRHigh", 155.0);
+		prefs.getDouble("FeederGLow", 197.0);
+		prefs.getDouble("FeederGHigh", 255.0);
+		prefs.getDouble("FeederBLow", 135.0);
+		prefs.getDouble("FeederBHigh", 255.0);
+		
 		
  	}
 
