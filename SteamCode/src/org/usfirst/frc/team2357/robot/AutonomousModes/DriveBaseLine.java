@@ -28,7 +28,7 @@ public class DriveBaseLine extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new DriveRobot(0.5, 0.0, 5000)); //addSequential(new DriveDistance(100.0));
+    	addSequential(new DriveRobot(0.5, 0.0, 5000)); //addSequential(new DriveDistance(120.0));
     	
     }
 }

@@ -107,7 +107,7 @@ public class VisionSub extends Subsystem {
                         double turnRatio = (centerX / (RobotMap.imgWidth/2)) - 1;
                     	turnAng = turnRatio * RobotMap.cameraFOVConst;
                     }
-                } else if(threadMiscount > 3){
+                } else if(threadMiscount > 5){
                 	turnAng = 0.0;
                 }else{
                 	threadMiscount ++;
