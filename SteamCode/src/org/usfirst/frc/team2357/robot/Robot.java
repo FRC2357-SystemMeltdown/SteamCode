@@ -10,7 +10,7 @@ import org.usfirst.frc.team2357.robot.subsystems.GearSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
-import org.usfirst.frc.team2357.robot.Config;
+import org.usfirst.frc.team2357.robot.AutonomousModes.BoilersideGearAuto;
 import org.usfirst.frc.team2357.robot.AutonomousModes.DriveBaseLine;
 
 //import edu.wpi.cscore.CvSink;
@@ -41,7 +41,6 @@ public class Robot extends IterativeRobot {
 	public ClimberSub climberSubsystem = new ClimberSub();
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	//SendableChooser<Config> driveMode = new SendableChooser<>();
 	public Preferences prefs;
 
 	/**
@@ -53,10 +52,9 @@ public class Robot extends IterativeRobot {
 		INSTANCE = this;
 		
 		oi = new OI();
-		chooser.addDefault("Default Auto", new DriveBaseLine());
-		//chooser.addObject("My Auto", new MyAutoCommand());
+		chooser.addDefault("Drive to Baseline", new DriveBaseLine());
+		chooser.addObject("Boiler Side Gear", new BoilersideGearAuto());
 		SmartDashboard.putData("Auto mode", chooser);
-		//SmartDashboard.putData("Drive Mode", driveMode);
 		//visionSubsystem.startVisionThread();
 		
 		prefs = Preferences.getInstance();
