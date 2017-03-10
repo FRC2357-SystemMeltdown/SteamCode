@@ -2,22 +2,34 @@ package org.usfirst.frc.team2357.robot.commands;
 
 import org.usfirst.frc.team2357.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class TurnToFixedAngle extends Command {
 	private double targetAngle = 0.0;
+	private boolean allianceSensitive = false;
+	
 	public TurnToFixedAngle(double angle) {
+		this(angle, false);
+	}
+	
+	public TurnToFixedAngle(double angle, boolean allianceSensitive) {
 		requires(Robot.INSTANCE.driveSubsystem);
 		
 		targetAngle = angle; //SmartDashboard.getNumber("TurnFixedAngle", 0.0);
+		this.allianceSensitive = allianceSensitive;
 	}
 	
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if (allianceSensitive) {
+    		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+    			this.targetAngle = this.targetAngle * -1.0;
+    		}
+    	}
     	Robot.INSTANCE.driveSubsystem.turnAngle(targetAngle);
     }
     
@@ -44,7 +56,4 @@ public class TurnToFixedAngle extends Command {
     protected void interrupted() {
     	end();
     }
-
-	
-	
 }

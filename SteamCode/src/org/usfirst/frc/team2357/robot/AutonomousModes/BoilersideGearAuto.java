@@ -29,7 +29,7 @@ public class BoilersideGearAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new DriveDistance(0.0 /*placeholder*/ ));
-    	addSequential(new TurnToFixedAngle(-60.0));
+    	addSequential(new TurnToFixedAngle(-60.0, true));
     	addSequential(new TurnToVisionAngle());
     	
     	

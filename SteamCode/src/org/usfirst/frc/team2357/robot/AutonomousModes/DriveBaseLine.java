@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2357.robot.AutonomousModes;
 
-import org.usfirst.frc.team2357.robot.commands.DriveDistance;
 import org.usfirst.frc.team2357.robot.commands.DriveRobot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
