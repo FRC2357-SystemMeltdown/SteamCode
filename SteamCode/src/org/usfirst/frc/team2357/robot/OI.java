@@ -68,7 +68,7 @@ public class OI {
 		x.toggleWhenPressed(new TurnToFixedAngle(30.0));
 		pressurePlateTrigger.whileActive(new DispenseGear());
 		a.whileHeld(new DispenseGear());
-		coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
+		//coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
 		//leftBumper.whenPressed(new DriveDistance(5.4));
 		
 		coSelect.whenPressed(new PingAlignToFeeder());
@@ -95,6 +95,11 @@ public class OI {
 	 * Get the XBox driver controller for the left side when using tank drive.
 	 * @return the XBox driver controller left side value for tank drive
 	 */
+	public boolean getCoA()
+	{
+		return coA.get();
+	}
+	
 	public double getTankLeft()
 	{
 		return driveController.getY(Hand.kLeft);

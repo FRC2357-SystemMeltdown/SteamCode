@@ -13,12 +13,11 @@ public class DriveUntilPegged extends DriveDistance {
         // eg. requires(chassis);
     	super(inches);
     }
-
-
+    
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return super.isFinished() || Robot.INSTANCE.gearSubsystem.isPegged();
+        return super.isFinished() || Robot.INSTANCE.gearSubsystem.isPegged() || Robot.INSTANCE.oi.getCoA(); 
     }
 
 
