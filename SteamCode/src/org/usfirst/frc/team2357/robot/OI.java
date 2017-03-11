@@ -1,21 +1,21 @@
 package org.usfirst.frc.team2357.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2357.robot.commands.ClimbDown;
 import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveDistance;
-import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
-import org.usfirst.frc.team2357.robot.commands.ManuallySwingDoor;
-import org.usfirst.frc.team2357.robot.commands.PingGearBinManual;
+import org.usfirst.frc.team2357.robot.commands.DriveRobot;
+import org.usfirst.frc.team2357.robot.commands.PingAlignToFeeder;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
-import org.usfirst.frc.team2357.robot.triggers.ManuallySwingDoorTrigger;
 import org.usfirst.frc.team2357.robot.triggers.PressurePlateTrigger;
 
 /**
@@ -34,7 +34,6 @@ public class OI {
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
 	private XboxController driveController = new XboxController(0);
-
 	private Button a = new JoystickButton(driveController, 1);
 	private Button b = new JoystickButton(driveController, 2);
 	private Button x = new JoystickButton(driveController, 3);
@@ -46,32 +45,37 @@ public class OI {
 	private Button leftStickButton = new JoystickButton(driveController, 9);
 	private Button rightStickButton = new JoystickButton(driveController, 10);
 	
-	private ManuallySwingDoorTrigger manualOverride = new ManuallySwingDoorTrigger(a);
+	private Joystick coDriveController = new Joystick(1);
+	private Button coA = new JoystickButton(coDriveController, 2);
+	private Button coB = new JoystickButton(coDriveController, 3);
+	private Button coX = new JoystickButton(coDriveController, 1);
+	private Button coY = new JoystickButton(coDriveController, 4);
+	private Button coLeftBumper = new JoystickButton(coDriveController, 5);
+	private Button coRightBumper = new JoystickButton(coDriveController, 6);
+	private Button coStart = new JoystickButton(coDriveController, 10);
+	private Button coSelect = new JoystickButton(coDriveController, 9);
 	
 	private PressurePlateTrigger pressurePlateTrigger = new PressurePlateTrigger();
 	
 	public OI()
 	{
+		SmartDashboard.putNumber("TurnFixedAngle", 0.0);
+		
 		y.toggleWhenPressed(new SwitchGears());
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
-		x.whenPressed(new TurnToVisionAngle());
-		//pressurePlateTrigger.whenActive(new DispenseGear());
+		startButton.toggleWhenPressed(new TurnToVisionAngle());
+		x.toggleWhenPressed(new TurnToFixedAngle(30.0));
+		pressurePlateTrigger.whileActive(new DispenseGear());
+		a.whileHeld(new DispenseGear());
+		//coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
+		//leftBumper.whenPressed(new DriveDistance(5.4));
 		
-		startButton.toggleWhenPressed(new PingGearBinManual());
-		manualOverride.whenActive(new ManuallySwingDoor());
-		
-		
-		//x.toggleWhenPressed(new DriveToTarget());
-		//x.whileHeld(new driveToTarget());
-		
-		//a.whileHeld(new DispenseGear());
-		leftBumper.whenPressed(new DriveDistance(5.4));
-		
-		
+		coSelect.whenPressed(new PingAlignToFeeder());
 		
 		
 	}
+
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
@@ -92,6 +96,11 @@ public class OI {
 	 * Get the XBox driver controller for the left side when using tank drive.
 	 * @return the XBox driver controller left side value for tank drive
 	 */
+	public boolean getCoA()
+	{
+		return coA.get();
+	}
+	
 	public double getTankLeft()
 	{
 		return driveController.getY(Hand.kLeft);

@@ -10,24 +10,30 @@ import com.ctre.CANTalon;
 import com.kauailabs.navx.frc.AHRS;
 import com.kauailabs.navx.frc.AHRS.SerialDataType;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 
 /**
  *
  */
-public class DriveSub extends Subsystem implements PIDOutput {
+public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 	private CANTalon leftDrive = new CANTalon(RobotMap.leftDrive1);
 	private CANTalon rightDrive = new CANTalon(RobotMap.rightDrive1);
 	private CANTalon leftDriveSlave = new CANTalon(RobotMap.leftDrive2);
 	private CANTalon rightDriveSlave = new CANTalon(RobotMap.rightDrive2);
 	private RobotDrive robotDrive = new RobotDrive(getLeftDrive(), getRightDrive());
-	private AHRS ahrs;
+
+	private AnalogGyro gyro = new AnalogGyro(1);
 	private PIDController turnController;
 	
 	private double turnRate;
@@ -36,19 +42,21 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	
 	public DriveSub(double p, double i, double d){
 		super();
-		try {
+		/*try {
 			ahrs = new AHRS(SerialPort.Port.kUSB);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error instantiating AHRS...");
-		}
+		}*/
 		
 		//ahrs.reset();
-		turnController = new PIDController(p, i, d, 0.0, ahrs, this);
+		turnController = new PIDController(p, i, d, 0.0, this , this);
 		turnController.setInputRange(-180.0, 180.0);
 		turnController.setOutputRange(-1.0, 1.0);
 		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
 		turnController.setContinuous(true);
+		turnController.setToleranceBuffer(5);
+		
 		
 		getLeftDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		getLeftDrive().configEncoderCodesPerRev(128);
@@ -86,7 +94,7 @@ public class DriveSub extends Subsystem implements PIDOutput {
     }
     
     public void arcadeDrive(double moveValue, double rotateValue) {
-    	robotDrive.arcadeDrive(moveValue, rotateValue);
+    	robotDrive.arcadeDrive(-moveValue, -rotateValue);
     }
     
     public void tankDrive(double leftValue, double rightValue){
@@ -105,7 +113,7 @@ public class DriveSub extends Subsystem implements PIDOutput {
     	turnController.reset();
     			
     	turnController.enable();
-    	if((ahrs.getYaw() + angle) > 180)
+    	/*if((ahrs.getYaw() + angle) > 180)
     	{
     		turnController.setSetpoint(ahrs.getYaw() + angle - 360);
     	} else if((ahrs.getYaw() + angle) < -180)
@@ -113,6 +121,17 @@ public class DriveSub extends Subsystem implements PIDOutput {
     		turnController.setSetpoint(ahrs.getYaw() + angle + 360);
     	} else {
     		turnController.setSetpoint(ahrs.getYaw() + angle);
+        	
+    	}*/
+    	if((getGyroYaw() + angle) > 180)
+    	{
+    		turnController.setSetpoint(getGyroYaw() + angle - 360);
+    		
+    	} else if((getGyroYaw() + angle) < -180)
+    	{
+    		turnController.setSetpoint(getGyroYaw() + angle + 360);
+    	} else {
+    		turnController.setSetpoint(getGyroYaw() + angle);
         	
     	}
 	}
@@ -133,6 +152,8 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	public void pidWrite(double output) {
 		turnRate = output;
 	}
+    
+    
 	
 	public void enablePositionalDrive()
 	{
@@ -165,7 +186,8 @@ public class DriveSub extends Subsystem implements PIDOutput {
      
 	public void printYaw()
 	{
-		System.out.println("Yaw:" + ahrs.getYaw());
+		//System.out.println("Yaw:" + ahrs.getYaw());
+		System.out.println("Yaw:" + getGyroYaw());
 	}
 	
 	public void printError()
@@ -185,6 +207,24 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	public boolean isPositionOnTarget()
 	{
 		return((Math.abs(leftDrive.getClosedLoopError()) <= 50) && (Math.abs(rightDrive.getClosedLoopError()) <= 50));
+	}
+	
+	private double getGyroYaw()
+	{
+		double in = gyro.getAngle();
+		double out = in;
+		if (Math.abs(in) > 180.0)
+		{
+			if (in > 0)
+			{
+				//out = (in - ((((int)in / 360) + 1) * 360));
+				out = -180 + (Math.abs(in + 180) % 360);
+			} else if(in < 0) {
+				//out = (in + ((((-(int)in) / 360) + 1) * 360));
+				out = 180 - (Math.abs(in + 180) % 360);
+			}
+		}
+		return out;
 	}
 
 	public CANTalon getLeftDrive() {
@@ -212,5 +252,24 @@ public class DriveSub extends Subsystem implements PIDOutput {
 	{
 		System.out.println("RightErr:" + rightDrive.getError());	
 	}
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+		// TODO Auto-generated method stub
+		gyro.setPIDSourceType(pidSource);		
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		// TODO Auto-generated method stub
+		return gyro.getPIDSourceType();
+	}
+
+	@Override
+	public double pidGet() {
+		// TODO Auto-generated method stub
+		return getGyroYaw();
+	}
+
 }
 

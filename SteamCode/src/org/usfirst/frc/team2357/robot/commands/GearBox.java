@@ -1,9 +1,8 @@
 package org.usfirst.frc.team2357.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team2357.robot.Robot;
-import org.usfirst.frc.team2357.robot.subsystems.GearSub;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *

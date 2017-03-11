@@ -18,6 +18,7 @@ public class DriveDistance extends Command {
     	requires(Robot.INSTANCE.driveSubsystem);
     	
     	distance = ((inches/18.85) * 5.4);
+    	
     }
 
     // Called just before this Command runs the first time

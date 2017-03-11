@@ -28,7 +28,8 @@ public class TurnToVisionAngle extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.INSTANCE.driveSubsystem.turnIsOnTarget();
+    	return Robot.INSTANCE.driveSubsystem.turnIsOnTarget();
+
     }
 
     // Called once after isFinished returns true

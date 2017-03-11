@@ -17,6 +17,7 @@ import org.opencv.features2d.FeatureDetector;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.*;
 import org.opencv.objdetect.*;
+import org.usfirst.frc.team2357.robot.Robot;
 
 /**
 * GripPipeline class.
@@ -42,9 +43,27 @@ public class GripPipeline implements VisionPipeline {
 	@Override	public void process(Mat source0) {
 		// Step RGB_Threshold0:
 		Mat rgbThresholdInput = source0;
-		double[] rgbThresholdRed = {69.0, 155.0};
-		double[] rgbThresholdGreen = {197.0, 255.0};
-		double[] rgbThresholdBlue = {135.0, 255.0};
+		double[] rgbThresholdRed = {0, 0};
+		double[] rgbThresholdGreen = {0.0, 0.0};
+		double[] rgbThresholdBlue = {0.0, 0.0};
+		if(Robot.INSTANCE.visionSubsystem.searchingForFeeder())
+		{
+			rgbThresholdRed[0] = Robot.INSTANCE.prefs.getDouble("FeederRLow", 0.0);
+			rgbThresholdRed[1] = Robot.INSTANCE.prefs.getDouble("FeederRHigh", 155.0);
+			rgbThresholdGreen[0] = Robot.INSTANCE.prefs.getDouble("FeederGLow", 197.0);
+			rgbThresholdGreen[1] = Robot.INSTANCE.prefs.getDouble("FeederGHigh", 255.0);
+			rgbThresholdBlue[0] = Robot.INSTANCE.prefs.getDouble("FeederBLow", 135.0);
+			rgbThresholdBlue[1] = Robot.INSTANCE.prefs.getDouble("FeederBHigh", 255.0);
+		}
+		else
+		{
+			rgbThresholdRed[0] = Robot.INSTANCE.prefs.getDouble("PegRLow", 0.0);
+			rgbThresholdRed[1] = Robot.INSTANCE.prefs.getDouble("PegRHigh", 155.0);
+			rgbThresholdGreen[0] = Robot.INSTANCE.prefs.getDouble("PegGLow", 197.0);
+			rgbThresholdGreen[1] = Robot.INSTANCE.prefs.getDouble("PegGHigh", 255.0);
+			rgbThresholdBlue[0] = Robot.INSTANCE.prefs.getDouble("PegBLow", 135.0);
+			rgbThresholdBlue[1] = Robot.INSTANCE.prefs.getDouble("PegBHigh", 255.0);
+		}
 		rgbThreshold(rgbThresholdInput, rgbThresholdRed, rgbThresholdGreen, rgbThresholdBlue, rgbThresholdOutput);
 
 		// Step Find_Contours0:
@@ -54,7 +73,7 @@ public class GripPipeline implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
-		double filterContoursMinArea = 100.0;
+		double filterContoursMinArea = 50.0;
 		double filterContoursMinPerimeter = 0.0;
 		double filterContoursMinWidth = 0.0;
 		double filterContoursMaxWidth = 10000.0;
