@@ -10,9 +10,12 @@ import org.usfirst.frc.team2357.robot.commands.ClimbUp;
 import org.usfirst.frc.team2357.robot.commands.DispenseGear;
 import org.usfirst.frc.team2357.robot.commands.DriveDistance;
 import org.usfirst.frc.team2357.robot.commands.DriveToTarget;
+import org.usfirst.frc.team2357.robot.commands.ManuallySwingDoor;
+import org.usfirst.frc.team2357.robot.commands.PingGearBinManual;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
+import org.usfirst.frc.team2357.robot.triggers.ManuallySwingDoorTrigger;
 import org.usfirst.frc.team2357.robot.triggers.PressurePlateTrigger;
 
 /**
@@ -43,6 +46,8 @@ public class OI {
 	private Button leftStickButton = new JoystickButton(driveController, 9);
 	private Button rightStickButton = new JoystickButton(driveController, 10);
 	
+	private ManuallySwingDoorTrigger manualOverride = new ManuallySwingDoorTrigger(a);
+	
 	private PressurePlateTrigger pressurePlateTrigger = new PressurePlateTrigger();
 	
 	public OI()
@@ -50,15 +55,20 @@ public class OI {
 		y.toggleWhenPressed(new SwitchGears());
 		b.toggleWhenPressed(new ClimbUp());
 		backButton.toggleWhenPressed(new ClimbDown());
-		startButton.whenPressed(new TurnToVisionAngle());
-		pressurePlateTrigger.whenActive(new DispenseGear());
+		x.whenPressed(new TurnToVisionAngle());
+		//pressurePlateTrigger.whenActive(new DispenseGear());
+		
+		startButton.toggleWhenPressed(new PingGearBinManual());
+		manualOverride.whenActive(new ManuallySwingDoor());
 		
 		
 		//x.toggleWhenPressed(new DriveToTarget());
 		//x.whileHeld(new driveToTarget());
 		
-		a.whileHeld(new DispenseGear());
+		//a.whileHeld(new DispenseGear());
 		leftBumper.whenPressed(new DriveDistance(5.4));
+		
+		
 		
 		
 	}
@@ -102,7 +112,7 @@ public class OI {
 	 */
 	public double getArcadeDriveMoveValue()
 	{
-		return driveController.getY(Hand.kLeft);
+		return -driveController.getY(Hand.kLeft);
 	}
 	
 	/**
@@ -116,7 +126,7 @@ public class OI {
 	
 	public double getSplitArdcadeDriveTurnValue()
 	{
-		return driveController.getX(Hand.kRight);
+		return -driveController.getX(Hand.kRight);
 	}
 
 }
