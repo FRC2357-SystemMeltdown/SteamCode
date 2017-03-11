@@ -17,7 +17,8 @@ public class ManuallySwingDoorTrigger extends Trigger {
 	}
 
 	public boolean get() {
-		return (Robot.INSTANCE.gearSubsystem2.getCurrentCommand() instanceof PingGearBinManual)
+		// Do not use instanceof because of the shape of the command hierarchy
+		return (Robot.INSTANCE.gearSubsystem2.getCurrentCommand().getClass() == PingGearBinManual.class)
 				&& (this.triggerButton.get());
 	}
 }

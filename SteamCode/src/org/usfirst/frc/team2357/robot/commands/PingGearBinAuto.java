@@ -8,6 +8,8 @@ import org.usfirst.frc.team2357.robot.subsystems.GearSub2.DoorPosition;
  *
  */
 public class PingGearBinAuto extends PingGearBinManual {
+	private PingGearBinAutoCloseDoor closeCmd = new PingGearBinAutoCloseDoor();
+
 	public PingGearBinAuto() {
 		super();
 	}
@@ -18,7 +20,7 @@ public class PingGearBinAuto extends PingGearBinManual {
 		if (gs.isPegged()) {
 			gs.setDoorPosition(DoorPosition.OPEN);
 		} else {
-			gs.setDoorPosition(DoorPosition.CLOSED);
+			closeCmd.start();
 		}
 		super.execute();
 	}
