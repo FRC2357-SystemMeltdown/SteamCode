@@ -7,16 +7,18 @@ import org.usfirst.frc.team2357.robot.subsystems.ClimberSub;
 //import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team2357.robot.subsystems.DriveSub;
 import org.usfirst.frc.team2357.robot.subsystems.GearSub;
-import org.usfirst.frc.team2357.robot.subsystems.GearSub2;
+import org.usfirst.frc.team2357.robot.subsystems.GearSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.AutonomousModes.BoilersideGearAuto;
 import org.usfirst.frc.team2357.robot.AutonomousModes.DriveBaseLine;
 
+import edu.wpi.first.wpilibj.DriverStation;
 //import edu.wpi.cscore.CvSink;
 //import edu.wpi.cscore.CvSource;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -37,8 +39,7 @@ public class Robot extends IterativeRobot {
 	public final DriveSub driveSubsystem = new DriveSub(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd);
 	public OI oi;
 	public PneumaticSub pneumaticSubsystem = new PneumaticSub();
-	public GearSub gearSubsystem = null; //new GearSub();
-	public GearSub2 gearSubsystem2 = new GearSub2();
+	public GearSub gearSubsystem = new GearSub();
 	public VisionSub visionSubsystem = new VisionSub();
 	public ClimberSub climberSubsystem = new ClimberSub();
 	Command autonomousCommand;
@@ -73,6 +74,12 @@ public class Robot extends IterativeRobot {
 		prefs.getDouble("FeederGHigh", 255.0);
 		prefs.getDouble("FeederBLow", 135.0);
 		prefs.getDouble("FeederBHigh", 255.0);
+		
+		if(DriverStation.getInstance().getBatteryVoltage() <= 11.50)
+		{
+			System.out.println("Battery: GOOD");
+		}
+		
 		
 		
  	}
@@ -150,10 +157,10 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		//System.out.println("TurnAng:" + visionSubsystem.getTurnAng());
-		System.out.println("TurnOutput:" + driveSubsystem.getTurnRate());
+		//System.out.println("TurnOutput:" + driveSubsystem.getTurnRate());
 		//System.out.println(visionSubsystem.);
-		driveSubsystem.printYaw();
-		driveSubsystem.printSetpoint();
+		//driveSubsystem.printYaw();
+		//driveSubsystem.printSetpoint();
 		/*driveSubsystem.printError();
 		driveSubsystem.printSetpoint();
 		System.out.println(driveSubsystem.getTurnRate());*/

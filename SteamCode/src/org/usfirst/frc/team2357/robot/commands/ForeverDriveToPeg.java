@@ -1,26 +1,25 @@
 package org.usfirst.frc.team2357.robot.commands;
 
-
 import org.usfirst.frc.team2357.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveUntilPegged extends DriveDistance {
+public class ForeverDriveToPeg extends DriveRobot {
 
-    public DriveUntilPegged(double inches) {
+    public ForeverDriveToPeg(double driveVal, double rotateVal) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	super(inches);
+    	super(driveVal, rotateVal);
     }
-    
-    
-    
 
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return super.isFinished() || Robot.INSTANCE.gearSubsystem.isPegged() || Robot.INSTANCE.oi.getCoA(); 
+        return Robot.INSTANCE.gearSubsystem.isPegged();
     }
 
-
+   
 }

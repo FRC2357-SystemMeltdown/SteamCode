@@ -55,7 +55,7 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 		turnController.setOutputRange(-1.0, 1.0);
 		turnController.setAbsoluteTolerance(RobotMap.PIDtol);
 		turnController.setContinuous(true);
-		turnController.setToleranceBuffer(5);
+		//turnController.setToleranceBuffer(5);
 		
 		
 		getLeftDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
@@ -123,21 +123,28 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
     		turnController.setSetpoint(ahrs.getYaw() + angle);
         	
     	}*/
+    	
+    	double newSetPoint = 0.0;
     	if((getGyroYaw() + angle) > 180)
     	{
-    		turnController.setSetpoint(getGyroYaw() + angle - 360);
-    		
+    		newSetPoint = getGyroYaw() + angle - 360;
     	} else if((getGyroYaw() + angle) < -180)
     	{
-    		turnController.setSetpoint(getGyroYaw() + angle + 360);
+    		newSetPoint = getGyroYaw() + angle + 360;
     	} else {
-    		turnController.setSetpoint(getGyroYaw() + angle);
-        	
+    		newSetPoint = getGyroYaw() + angle;
     	}
+    	if (Math.abs(angle) < RobotMap.cameraFOVConst)
+    	{
+    		turnController.setPID(RobotMap.PIDp_SmallTurns, RobotMap.PIDi_SmallTurns, RobotMap.PIDd_SmallTurns);
+    	} else {
+    		turnController.setPID(RobotMap.PIDp, RobotMap.PIDi, RobotMap.PIDd);
+    	}
+    	turnController.setSetpoint(newSetPoint);
 	}
     
     public boolean turnIsOnTarget() {
-    	System.out.println("TurnCtrlrErr:" + turnController.getError());
+    	//System.out.println("TurnCtrlrErr:" + turnController.getError());
     	return turnController.onTarget();
     }
     

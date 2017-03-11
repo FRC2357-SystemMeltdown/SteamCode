@@ -1,8 +1,8 @@
 package org.usfirst.frc.team2357.robot.commands;
 
 import org.usfirst.frc.team2357.robot.Robot;
-import org.usfirst.frc.team2357.robot.subsystems.GearSub2;
-import org.usfirst.frc.team2357.robot.subsystems.GearSub2.DoorPosition;
+import org.usfirst.frc.team2357.robot.subsystems.GearSub;
+import org.usfirst.frc.team2357.robot.subsystems.GearSub.DoorPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,7 +17,7 @@ public class ManuallySwingDoor extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		GearSub2 gs = Robot.INSTANCE.gearSubsystem2;
+		GearSub gs = Robot.INSTANCE.gearSubsystem;
 		if (gs.getDoorPosition() == DoorPosition.CLOSED) {
 			gs.setDoorPosition(DoorPosition.OPEN);
 		} else {

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2357.robot.commands;
 
 import org.usfirst.frc.team2357.robot.Robot;
-import org.usfirst.frc.team2357.robot.subsystems.GearSub2.DoorPosition;
+import org.usfirst.frc.team2357.robot.subsystems.GearSub.DoorPosition;
 
 /**
  *
@@ -19,6 +19,6 @@ public class PingGearBinAutoCloseDoor extends PingGearBinManual {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.INSTANCE.gearSubsystem2.setDoorPosition(DoorPosition.CLOSED);
+		Robot.INSTANCE.gearSubsystem.setDoorPosition(DoorPosition.CLOSED);
 	}
 }

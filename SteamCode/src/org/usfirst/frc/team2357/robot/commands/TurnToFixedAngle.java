@@ -25,6 +25,7 @@ public class TurnToFixedAngle extends Command {
 	
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println(this.getName() + " Start Time: " + System.currentTimeMillis());
     	if (allianceSensitive) {
     		if (DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
     			this.targetAngle = this.targetAngle * -1.0;
@@ -49,6 +50,7 @@ public class TurnToFixedAngle extends Command {
     protected void end() {
     	Robot.INSTANCE.driveSubsystem.stopPID();
     	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, 0.0);
+    	System.out.println(this.getName() + " Stop Time: " + System.currentTimeMillis());
     }
 
     // Called when another command which requires one or more of the same

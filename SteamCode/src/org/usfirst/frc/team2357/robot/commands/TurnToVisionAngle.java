@@ -15,6 +15,7 @@ public class TurnToVisionAngle extends Command {
 	
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println(this.getName() + " Start Time: " + System.currentTimeMillis());
     	targetAngle = Robot.INSTANCE.visionSubsystem.getTurnAng();
     	Robot.INSTANCE.driveSubsystem.turnAngle(targetAngle);
     }
@@ -36,6 +37,7 @@ public class TurnToVisionAngle extends Command {
     protected void end() {
     	Robot.INSTANCE.driveSubsystem.stopPID();
     	Robot.INSTANCE.driveSubsystem.arcadeDrive(0.0, 0.0);
+    	System.out.println(this.getName() + " Stop Time: " + System.currentTimeMillis());
     }
 
     // Called when another command which requires one or more of the same

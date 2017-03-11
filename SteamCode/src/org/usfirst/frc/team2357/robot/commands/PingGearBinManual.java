@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class PingGearBinManual extends Command {
 	public PingGearBinManual() {
-		requires(Robot.INSTANCE.gearSubsystem2);
+		requires(Robot.INSTANCE.gearSubsystem);
 	}
 
 	// Called just before this Command runs the first time
@@ -18,7 +18,7 @@ public class PingGearBinManual extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.INSTANCE.gearSubsystem2.ping();
+		Robot.INSTANCE.gearSubsystem.ping();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

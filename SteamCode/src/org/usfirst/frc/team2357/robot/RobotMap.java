@@ -30,9 +30,12 @@ public class RobotMap {
 	public static final int imgHeight = 240;
 	public static final int imgWidth = 320;
 
-	public static final double PIDp = 0.03; // 0.03
-	public static final double PIDi = 0.002; // 0.001
-	public static final double PIDd = 0.001; // 0.0004
+	public static final double PIDp = 0.02; // 0.03
+	public static final double PIDp_SmallTurns = 0.03;
+	public static final double PIDi = 0.0001; // 0.001
+	public static final double PIDi_SmallTurns = 0.001;
+	public static final double PIDd = 0.00001; // 0.0004
+	public static final double PIDd_SmallTurns = 0.0;
 	public static final double PIDtol = 2.0;
 	
 	public static final int turnTimeout = 3;

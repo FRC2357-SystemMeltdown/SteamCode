@@ -5,6 +5,7 @@ import org.usfirst.frc.team2357.robot.commands.PingGearBinManual;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
@@ -18,7 +19,8 @@ public class ManuallySwingDoorTrigger extends Trigger {
 
 	public boolean get() {
 		// Do not use instanceof because of the shape of the command hierarchy
-		return (Robot.INSTANCE.gearSubsystem2.getCurrentCommand().getClass() == PingGearBinManual.class)
+		Command currentGearCommand = Robot.INSTANCE.gearSubsystem.getCurrentCommand();
+		return (currentGearCommand != null) && (currentGearCommand.getClass() == PingGearBinManual.class)
 				&& (this.triggerButton.get());
 	}
 }
