@@ -57,7 +57,7 @@ public class GearSub extends Subsystem {
 	}
 
 	public boolean isPegged() {
-		return (this.limitSwitch1.get() || this.limitSwitch2.get() || Robot.INSTANCE.oi.getCoA());
+		return (this.limitSwitch1.get() || this.limitSwitch2.get());
 	}
 
 	public void initDefaultCommand() {

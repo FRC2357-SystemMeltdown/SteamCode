@@ -58,28 +58,21 @@ public class OI {
 	private Button coStart = new JoystickButton(coDriveController, 10);
 	private Button coSelect = new JoystickButton(coDriveController, 9);
 	
-	private ManuallySwingDoorTrigger doorTrigger = new ManuallySwingDoorTrigger(coB);
+	private ManuallySwingDoorTrigger doorTrigger = new ManuallySwingDoorTrigger(coA);
 	
 	public boolean reverse = false;
 	
 	public OI()
 	{
-		SmartDashboard.putNumber("TurnFixedAngle", 0.0);
-		
 		y.toggleWhenPressed(new SwitchGears());
+		leftBumper.whileHeld(new VisionTurnAndDrive());
 		b.toggleWhenPressed(new ClimbUp());
-		backButton.toggleWhenPressed(new ClimbDown());
-		startButton.toggleWhenPressed(new TurnToVisionAngle());
-		x.toggleWhenPressed(new TurnToFixedAngle(30.0));
-		//coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
-		rightBumper.toggleWhenPressed(new ReverseCommand());
 		
+		coX.whenPressed(new PingAlignToFeeder());
 		coStart.toggleWhenPressed(new PingGearBinManual());
 		doorTrigger.whenActive(new ManuallySwingDoor());
-		coSelect.whenPressed(new PingAlignToFeeder());
-		leftBumper.whileHeld(new VisionTurnAndDrive());
-		
-		
+		coSelect.toggleWhenPressed(new ReverseCommand());
+		coY.toggleWhenPressed(new ClimbDown());
 	}
 
 	//// TRIGGERING COMMANDS WITH BUTTONS

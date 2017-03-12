@@ -12,7 +12,6 @@ public class PingAlignToFeeder extends Command {
     public PingAlignToFeeder() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.INSTANCE.visionSubsystem);
     }
 
     // Called just before this Command runs the first time
