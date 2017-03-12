@@ -59,6 +59,8 @@ public class OI {
 	
 	private ManuallySwingDoorTrigger doorTrigger = new ManuallySwingDoorTrigger(coB);
 	
+	public boolean reverse = false;
+	
 	public OI()
 	{
 		SmartDashboard.putNumber("TurnFixedAngle", 0.0);
@@ -124,7 +126,12 @@ public class OI {
 	 */
 	public double getArcadeDriveMoveValue()
 	{
-		return driveController.getY(Hand.kLeft);
+		if(reverse == false){
+			return driveController.getY(Hand.kLeft);
+		} else {
+			return -driveController.getY(Hand.kLeft);
+		}
+
 	}
 	
 	/**
@@ -138,7 +145,11 @@ public class OI {
 	
 	public double getSplitArdcadeDriveTurnValue()
 	{
-		return driveController.getX(Hand.kRight);
+		if(reverse == false){
+			return driveController.getX(Hand.kRight);
+		} else {
+			return -driveController.getX(Hand.kRight);
+		}
 	}
 
 }
