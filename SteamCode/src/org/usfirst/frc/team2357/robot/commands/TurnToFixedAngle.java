@@ -32,6 +32,7 @@ public class TurnToFixedAngle extends Command {
     		}
     	}
     	Robot.INSTANCE.driveSubsystem.turnAngle(targetAngle);
+    	setTimeout(1.2);
     }
     
     // Called repeatedly when this Command is scheduled to run
@@ -43,7 +44,7 @@ public class TurnToFixedAngle extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.INSTANCE.driveSubsystem.turnIsOnTarget();
+        return Robot.INSTANCE.driveSubsystem.turnIsOnTarget() || isTimedOut();
     }
 
     // Called once after isFinished returns true

@@ -11,7 +11,12 @@ import org.usfirst.frc.team2357.robot.subsystems.GearSub;
 import org.usfirst.frc.team2357.robot.subsystems.PneumaticSub;
 //import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
 import org.usfirst.frc.team2357.robot.subsystems.VisionSub;
-import org.usfirst.frc.team2357.robot.AutonomousModes.BoilersideGearAuto;
+import org.usfirst.frc.team2357.robot.AutonomousModes.RedBoilersideGearAuto;
+import org.usfirst.frc.team2357.robot.AutonomousModes.RedCenterGearAuto;
+import org.usfirst.frc.team2357.robot.AutonomousModes.RedFeedersideGearAuto;
+import org.usfirst.frc.team2357.robot.AutonomousModes.BlueBoilersideGearAuto;
+import org.usfirst.frc.team2357.robot.AutonomousModes.BlueCenterGearAuto;
+import org.usfirst.frc.team2357.robot.AutonomousModes.BlueFeedersideGearAuto;
 import org.usfirst.frc.team2357.robot.AutonomousModes.DriveBaseLine;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -56,7 +61,12 @@ public class Robot extends IterativeRobot {
 		
 		oi = new OI();
 		chooser.addDefault("Drive to Baseline", new DriveBaseLine());
-		chooser.addObject("Boiler Side Gear", new BoilersideGearAuto());
+		chooser.addObject("Red Boiler Side Gear", new RedBoilersideGearAuto());
+		chooser.addObject("Blue Boiler Side Gear", new BlueBoilersideGearAuto());
+		chooser.addObject("Red Feeder Side Gear", new RedFeedersideGearAuto());
+		chooser.addObject("Blue Feeder Side Gear", new BlueFeedersideGearAuto());
+		chooser.addObject("Blue Center Gear", new BlueCenterGearAuto());
+		chooser.addObject("Red Center Gear", new RedCenterGearAuto());
 		SmartDashboard.putData("Auto mode", chooser);
 		//visionSubsystem.startVisionThread();
 		

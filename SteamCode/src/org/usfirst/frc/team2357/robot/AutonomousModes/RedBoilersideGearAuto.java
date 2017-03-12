@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 /**
  *
  */
-public class BoilersideGearAuto extends CommandGroup {
+public class RedBoilersideGearAuto extends CommandGroup {
 
-    public BoilersideGearAuto() {
+    public RedBoilersideGearAuto() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -33,17 +33,19 @@ public class BoilersideGearAuto extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new DriveRobot(0.5, 0.0, 3000)); //addSequential(new DriveDistance(87.09));
-    	addSequential(new TurnToFixedAngle(45.0, false));
-    	//addSequential(new TurnToFixedAngle(30.0, false));
+    	addSequential(new TurnToFixedAngle(-45.0, false));
+    	//addSequential(new TurnToFixedAngle(-30.0, false));
     	//addSequential(new TurnToVisionAngle());
-    	addSequential(new DriveRobot(0.5, 0.0, 800)); //addSequential(new DriveDistance(6)); //TODO Requires Tuning
+    	addSequential(new DriveRobot(0.5, 0.0, 1200)); //addSequential(new DriveDistance(6)); //TODO Requires Tuning
     	addSequential(new TurnToVisionAngle());
     	addSequential(new ForeverDriveToPeg(0.5, 0.0)); //addSequential(new DriveUntilPegged(36));
     	addSequential(new WaitCommand(1.0));
     	addSequential(new DriveRobot(-0.5, 0.0, 2000)); //addSequential(new DriveDistance(-48));
-    	//addSequential(new TurnToFixedAngle(-30.0, false));
-    	addSequential(new TurnToFixedAngle(-45.0, false));
+    	//addSequential(new TurnToFixedAngle(30.0, false));
+    	addSequential(new TurnToFixedAngle(45.0, false));
     	addSequential(new DriveRobot(0.5, 0.0, 1000)); //addSequential(new DriveDistance(60));
+    	addSequential(new TurnToFixedAngle(-45.0, false));
+    	addSequential(new DriveRobot(0.5, 0.0, 1000)); //addSequential(new DriveDistance(60)); //TODO Make distance much greater than this
     	
     }
 }
