@@ -14,6 +14,7 @@ import org.usfirst.frc.team2357.robot.commands.DriveRobot;
 import org.usfirst.frc.team2357.robot.commands.ManuallySwingDoor;
 import org.usfirst.frc.team2357.robot.commands.PingAlignToFeeder;
 import org.usfirst.frc.team2357.robot.commands.PingGearBinManual;
+import org.usfirst.frc.team2357.robot.commands.ReverseCommand;
 import org.usfirst.frc.team2357.robot.commands.SwitchGears;
 import org.usfirst.frc.team2357.robot.commands.TurnToFixedAngle;
 import org.usfirst.frc.team2357.robot.commands.TurnToVisionAngle;
@@ -71,7 +72,7 @@ public class OI {
 		startButton.toggleWhenPressed(new TurnToVisionAngle());
 		x.toggleWhenPressed(new TurnToFixedAngle(30.0));
 		//coA.whenPressed(new DriveRobot(0.5, 0.0, 1000));
-		//leftBumper.whenPressed(new DriveDistance(5.4));
+		rightBumper.toggleWhenPressed(new ReverseCommand());
 		
 		coStart.toggleWhenPressed(new PingGearBinManual());
 		doorTrigger.whenActive(new ManuallySwingDoor());
@@ -145,11 +146,11 @@ public class OI {
 	
 	public double getSplitArdcadeDriveTurnValue()
 	{
-		if(reverse == false){
+		//if(reverse == false){
 			return driveController.getX(Hand.kRight);
-		} else {
-			return -driveController.getX(Hand.kRight);
-		}
+		//} else {
+		//	return -driveController.getX(Hand.kRight);
+		//}
 	}
 
 }

@@ -35,7 +35,7 @@ public class RobotMap {
 	public static final double PIDi = 0.0001; // 0.001
 	public static final double PIDi_SmallTurns = 0.001;
 	public static final double PIDd = 0.00001; // 0.0004
-	public static final double PIDd_SmallTurns = 0.0;
+	public static final double PIDd_SmallTurns = 0.001;
 	public static final double PIDtol = 1.0;
 	
 	public static final int turnTimeout = 3;
