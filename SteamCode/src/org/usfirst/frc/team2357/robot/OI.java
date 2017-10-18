@@ -65,14 +65,17 @@ public class OI {
 	public OI()
 	{
 		y.toggleWhenPressed(new SwitchGears());
-		leftBumper.whileHeld(new VisionTurnAndDrive());
-		b.toggleWhenPressed(new ClimbUp());
+		b.toggleWhenPressed(new SwitchGears());
+		a.whileHeld(new VisionTurnAndDrive());
+		backButton.toggleWhenPressed(new ReverseCommand());
+		x.whenPressed(new ManuallySwingDoor());
+		//startButton.whenPressed(new )
 		
-		coX.whenPressed(new PingAlignToFeeder());
-		coStart.toggleWhenPressed(new PingGearBinManual());
-		doorTrigger.whenActive(new ManuallySwingDoor());
-		coSelect.toggleWhenPressed(new ReverseCommand());
-		coY.toggleWhenPressed(new ClimbDown());
+		//coX.whenPressed(new PingAlignToFeeder());
+		//coStart.toggleWhenPressed(new PingGearBinManual());
+		//doorTrigger.whenActive(new ManuallySwingDoor());
+		//coSelect.toggleWhenPressed(new ReverseCommand());
+		//coY.toggleWhenPressed(new ClimbDown());
 	}
 
 	//// TRIGGERING COMMANDS WITH BUTTONS

@@ -62,6 +62,8 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 		getLeftDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		getLeftDrive().configEncoderCodesPerRev(128);
 		getLeftDrive().setControlMode(0);
+		leftDrive.setInverted(true);
+		leftDriveSlave.setInverted(true);
 		leftDrive.setAllowableClosedLoopErr(50);
 		getLeftDrive().setPID(0.5, 0.0005, 0.0);
 		getRightDrive().setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
@@ -69,6 +71,8 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 		getRightDrive().setControlMode(0);
 		rightDrive.setAllowableClosedLoopErr(50);
 		getRightDrive().setPID(0.5, 0.0005, 0.0);
+		rightDrive.setInverted(true);
+		rightDriveSlave.setInverted(true);
 		
 		leftDriveSlave.changeControlMode(CANTalon.TalonControlMode.Follower);
 		leftDriveSlave.set(RobotMap.leftDrive1);

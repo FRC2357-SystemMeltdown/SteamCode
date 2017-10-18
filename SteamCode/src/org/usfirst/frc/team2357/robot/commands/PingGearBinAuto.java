@@ -9,6 +9,8 @@ import org.usfirst.frc.team2357.robot.subsystems.GearSub.DoorPosition;
  */
 public class PingGearBinAuto extends PingGearBinManual {
 	private PingGearBinAutoCloseDoor closeCmd = new PingGearBinAutoCloseDoor();
+	GearSub gs = Robot.INSTANCE.gearSubsystem;
+	private boolean oldPos = false;
 
 	public PingGearBinAuto() {
 		super();
@@ -16,11 +18,13 @@ public class PingGearBinAuto extends PingGearBinManual {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		GearSub gs = Robot.INSTANCE.gearSubsystem;
 		if (gs.isPegged()) {
 			gs.setDoorPosition(DoorPosition.OPEN);
-		} else {
+			oldPos = true;
+		}
+		if(!gs.isPegged() && oldPos){
 			closeCmd.start();
+			oldPos = false;
 		}
 		super.execute();
 	}

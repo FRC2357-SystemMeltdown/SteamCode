@@ -21,9 +21,6 @@ public class RobotMap {
 	public static final int rightDrive1 = 2;
 	public static final int rightDrive2 = 4;
 	
-	public static final int leftGearServo = 1;
-	public static final int rightGearServo = 0;
-	
 	public static final int leftWinchController = 2;
 	public static final int rightWinchController = 3;
 	

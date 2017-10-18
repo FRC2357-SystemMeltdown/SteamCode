@@ -5,6 +5,7 @@ import org.usfirst.frc.team2357.robot.RobotMap;
 import org.usfirst.frc.team2357.robot.commands.PingGearBinAuto;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,8 +13,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class GearSub extends Subsystem {
-	private Servo leftServo = new Servo(RobotMap.leftGearServo);
-	private Servo rightServo = new Servo(RobotMap.rightGearServo);
 
 	private DigitalInput limitSwitch1 = new DigitalInput(0);
 	private DigitalInput limitSwitch2 = new DigitalInput(1);
@@ -21,31 +20,19 @@ public class GearSub extends Subsystem {
 	private DoorPosition doorPosition = DoorPosition.CLOSED;
 
 	public enum DoorPosition {
-		CLOSED(1.0, 0.0), OPEN(0.5, 0.5);
-
-		private double leftSetPoint;
-		private double rightSetPoint;
-
-		private DoorPosition(double leftSetPoint, double rightSetPoint) {
-			this.leftSetPoint = leftSetPoint;
-			this.rightSetPoint = rightSetPoint;
-		}
-
-		public double getLeftSetPoint() {
-			return this.leftSetPoint;
-		}
-
-		public double getRightSetPoint() {
-			return this.rightSetPoint;
-		}
+		CLOSED, OPEN;
 	}
 
 	public GearSub() {
 	}
 
 	public void ping() {
-		this.leftServo.set(this.getDoorPosition().getLeftSetPoint());
-		this.rightServo.set(this.getDoorPosition().getRightSetPoint());
+		if(doorPosition == DoorPosition.CLOSED){
+			Robot.INSTANCE.pneumaticSubsystem.gearSolenoid.set(DoubleSolenoid.Value.kForward);
+		} else {
+			Robot.INSTANCE.pneumaticSubsystem.gearSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
+			
 	}
 
 	public DoorPosition getDoorPosition() {
@@ -63,6 +50,6 @@ public class GearSub extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new PingGearBinAuto());
+		//setDefaultCommand(new PingGearBinAuto());
 	}
 }

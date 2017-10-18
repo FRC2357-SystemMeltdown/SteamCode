@@ -17,25 +17,30 @@ public class ManuallySwingDoor extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("Initialize");
 		GearSub gs = Robot.INSTANCE.gearSubsystem;
 		if (gs.getDoorPosition() == DoorPosition.CLOSED) {
 			gs.setDoorPosition(DoorPosition.OPEN);
 		} else {
 			gs.setDoorPosition(DoorPosition.CLOSED);
 		}
+		gs.ping();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		System.out.println("execute");
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		System.out.println("isFinished");
 		return true;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		System.out.println("end");
 	}
 
 	// Called when another command which requires one or more of the same

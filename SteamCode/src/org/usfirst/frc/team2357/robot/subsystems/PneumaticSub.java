@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
  */
 public class PneumaticSub extends Subsystem {
 	 DoubleSolenoid solenoid1 = new DoubleSolenoid(5,4);
+	 DoubleSolenoid gearSolenoid = new DoubleSolenoid(7,6);
 	 Compressor compressor = new Compressor(0);
 	 PowerDistributionPanel PDP = new PowerDistributionPanel();
 	 
@@ -45,8 +46,8 @@ public class PneumaticSub extends Subsystem {
 	 
 	 public void stopPistonSol()
 	 {
-		 solenoid1.set(DoubleSolenoid.Value.kOff);
-		
+		solenoid1.set(DoubleSolenoid.Value.kOff);
+		gearSolenoid.set(DoubleSolenoid.Value.kOff);
 	 }
 	 
     public void initDefaultCommand() {
