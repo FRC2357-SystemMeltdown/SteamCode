@@ -24,7 +24,6 @@ public class ManuallySwingDoor extends Command {
 		} else {
 			gs.setDoorPosition(DoorPosition.CLOSED);
 		}
-		gs.ping();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
