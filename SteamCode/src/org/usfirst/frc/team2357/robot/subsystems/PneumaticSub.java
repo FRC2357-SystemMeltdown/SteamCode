@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
  */
 public class PneumaticSub extends Subsystem {
 	 DoubleSolenoid solenoid1 = new DoubleSolenoid(5,4);
-	 DoubleSolenoid gearSolenoid = new DoubleSolenoid(7,6);
+	 DoubleSolenoid gearSolenoid = new DoubleSolenoid(6,7);
 	 Compressor compressor = new Compressor(0);
 	 PowerDistributionPanel PDP = new PowerDistributionPanel();
 	 

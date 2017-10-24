@@ -68,9 +68,9 @@ public class OI {
 		b.toggleWhenPressed(new SwitchGears());
 		a.whileHeld(new VisionTurnAndDrive());
 		backButton.toggleWhenPressed(new ReverseCommand());
-		//x.whenPressed(new ManuallySwingDoor());
+		x.whenPressed(new ManuallySwingDoor());
 		
-		coX.whenPressed(new PingAlignToFeeder());
+		//coX.whenPressed(new PingAlignToFeeder());
 		coStart.toggleWhenPressed(new PingGearBinManual());
 		doorTrigger.whenActive(new ManuallySwingDoor());
 		//coSelect.toggleWhenPressed(new ReverseCommand());

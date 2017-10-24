@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class GearSub extends Subsystem {
 
-	private DigitalInput limitSwitch1 = new DigitalInput(0);
-	private DigitalInput limitSwitch2 = new DigitalInput(1);
+	private DigitalInput limitSwitch1 = new DigitalInput(1);
+	private DigitalInput limitSwitch2 = new DigitalInput(2);
 
 	private DoorPosition doorPosition = DoorPosition.CLOSED;
 
