@@ -33,13 +33,13 @@ public class BlueCenterGearAuto extends CommandGroup {
     	
     	addSequential(new DriveRobot(0.5, 0.0, 1200)); //addSequential(new DriveDistance(6)); //TODO Requires Tuning
     	addSequential(new TurnToVisionAngle());
-    	addSequential(new ForeverDriveToPeg(0.5, 0.0)); //addSequential(new DriveUntilPegged(36));
+    	addSequential(new ForeverDriveToPeg(0.48, 0.0)); //addSequential(new DriveUntilPegged(36));
     	addSequential(new WaitCommand(1.0));
     	addSequential(new DriveRobot(-0.5, 0.0, 2000)); //addSequential(new DriveDistance(-48));
     	//addSequential(new TurnToFixedAngle(30.0, false));
-    	addSequential(new TurnToFixedAngle(45.0, false));
-    	addSequential(new DriveRobot(0.5, 0.0, 3000)); //addSequential(new DriveDistance(60));
-    	addSequential(new TurnToFixedAngle(-45.0, false));
-    	addSequential(new DriveRobot(0.5, 0.0, 2000)); //addSequential(new DriveDistance(60)); //TODO Make distance much greater than this
+//    	addSequential(new TurnToFixedAngle(45.0, false));
+//    	addSequential(new DriveRobot(0.5, 0.0, 3000)); //addSequential(new DriveDistance(60));
+//    	addSequential(new TurnToFixedAngle(-45.0, false));
+//    	addSequential(new DriveRobot(0.5, 0.0, 2000)); //addSequential(new DriveDistance(60)); //TODO Make distance much greater than this
     }
 }

@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
 		INSTANCE = this;
 		
 		oi = new OI();
-		chooser.addDefault("Drive to Baseline", new DriveBaseLine());
+		chooser.addDefault("Drive to Baseline", new BlueCenterGearAuto());
 		chooser.addObject("Red Boiler Side Gear", new RedBoilersideGearAuto());
 		chooser.addObject("Blue Boiler Side Gear", new BlueBoilersideGearAuto());
 		chooser.addObject("Red Feeder Side Gear", new RedFeedersideGearAuto());

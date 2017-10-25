@@ -42,9 +42,9 @@ public class BlueBoilersideGearAuto extends CommandGroup {
     	addSequential(new WaitCommand(1.0));
     	addSequential(new DriveRobot(-0.5, 0.0, 2000)); //addSequential(new DriveDistance(-48));
     	//addSequential(new TurnToFixedAngle(-30.0, false));
-    	addSequential(new TurnToFixedAngle(-45.0, false));
-    	addSequential(new DriveRobot(0.5, 0.0, 1000)); //addSequential(new DriveDistance(60));
-    	addSequential(new TurnToFixedAngle(45.0, false));
-    	addSequential(new DriveRobot(0.5, 0.0, 1000)); //addSequential(new DriveDistance(60)); //TODO Make distance much greater than this
+//    	addSequential(new TurnToFixedAngle(-45.0, false));
+//    	addSequential(new DriveRobot(0.5, 0.0, 1000)); //addSequential(new DriveDistance(60));
+//    	addSequential(new TurnToFixedAngle(45.0, false));
+//    	addSequential(new DriveRobot(0.5, 0.0, 1000)); //addSequential(new DriveDistance(60)); //TODO Make distance much greater than this
     }
 }
