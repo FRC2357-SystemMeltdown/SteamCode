@@ -81,6 +81,16 @@ public class DriveSub extends Subsystem implements PIDOutput, PIDSource {
 		rightDriveSlave.set(RobotMap.rightDrive1);
 		//rightDriveSlave.reverseOutput(true);
 		robotDrive.setSafetyEnabled(false);
+		
+		// SFW ADDED
+		//brakeMode(true);
+	}
+	
+	private void brakeMode(boolean brake) {
+		leftDrive.enableBrakeMode(brake);
+		rightDrive.enableBrakeMode(brake);
+		leftDriveSlave.enableBrakeMode(brake);
+		rightDriveSlave.enableBrakeMode(brake);
 	}
 	
     // Put methods for controlling this subsystem

@@ -89,7 +89,7 @@ public class VisionSub extends Subsystem {
                     synchronized (imgLock) {
                         centerX = (((r1.x + (r1.width / 2)) + ((r2.x + r2.width) - (r2.width / 2))) / 2);
                         double turnRatio = (centerX / (RobotMap.imgWidth/2)) - 1;
-                    	turnAng = turnRatio * RobotMap.cameraFOVConst;
+                    	turnAng = (turnRatio * RobotMap.cameraFOVConst) + 3.0;
                     }
                     
                 } else if((!contours.isEmpty() && contours.size() == 1)){
@@ -105,7 +105,7 @@ public class VisionSub extends Subsystem {
                     synchronized (imgLock) {
                         centerX = r1.x + (r1.width / 2);
                         double turnRatio = (centerX / (RobotMap.imgWidth/2)) - 1;
-                    	turnAng = turnRatio * RobotMap.cameraFOVConst;
+                    	turnAng = (turnRatio * RobotMap.cameraFOVConst) + 3.0;
                     }
                 } else if(threadMiscount > 5){
                 	turnAng = 0.0;

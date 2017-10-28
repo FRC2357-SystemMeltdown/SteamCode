@@ -60,13 +60,14 @@ public class Robot extends IterativeRobot {
 		INSTANCE = this;
 		
 		oi = new OI();
-		chooser.addDefault("Drive to Baseline", new BlueCenterGearAuto());
-		chooser.addObject("Red Boiler Side Gear", new RedBoilersideGearAuto());
-		chooser.addObject("Blue Boiler Side Gear", new BlueBoilersideGearAuto());
-		chooser.addObject("Red Feeder Side Gear", new RedFeedersideGearAuto());
-		chooser.addObject("Blue Feeder Side Gear", new BlueFeedersideGearAuto());
-		chooser.addObject("Blue Center Gear", new BlueCenterGearAuto());
-		chooser.addObject("Red Center Gear", new RedCenterGearAuto());
+		chooser.addDefault("Drive to Baseline", new DriveBaseLine());
+		chooser.addObject("Center Gear", new BlueCenterGearAuto());
+		//chooser.addObject("Red Boiler Side Gear", new RedBoilersideGearAuto());
+		//chooser.addObject("Blue Boiler Side Gear", new BlueBoilersideGearAuto());
+		//chooser.addObject("Red Feeder Side Gear", new RedFeedersideGearAuto());
+		//chooser.addObject("Blue Feeder Side Gear", new BlueFeedersideGearAuto());
+		//chooser.addObject("Blue Center Gear", new BlueCenterGearAuto());
+		//chooser.addObject("Red Center Gear", new RedCenterGearAuto());
 		SmartDashboard.putData("Auto mode", chooser);
 		//visionSubsystem.startVisionThread();
 		

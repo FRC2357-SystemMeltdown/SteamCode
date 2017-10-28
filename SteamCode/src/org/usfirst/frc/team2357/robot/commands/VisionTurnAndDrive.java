@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2357.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -25,6 +26,8 @@ public class VisionTurnAndDrive extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new TurnToVisionAngle());
-    	addSequential(new DriveRobot(0.5, 0.0));
+    	addSequential(new ForeverDriveToPeg(0.48, 0.0)); //addSequential(new DriveUntilPegged(36));
+    	addSequential(new WaitCommand(1.0));
+    	addSequential(new DriveRobot(-0.5, 0.0, 2000));
     }
 }
