@@ -44,7 +44,7 @@ package edu.wpi.first.wpilibj.command;
  *            the {@link Enum} that implements {@link State} that is to be used
  *            for this {@link StateMachineCommand}.
  */
-public abstract class StateMachineCommand<E extends Enum<E>> extends Command {
+public abstract class StateMachineCommand<E extends Enum<E>> extends AbstractStateCommand {
 	private State currentState;
 	private final Class<E> stateEnumClazz;
 
@@ -126,6 +126,7 @@ public abstract class StateMachineCommand<E extends Enum<E>> extends Command {
 			this.currentState.getCommandToRun().cancel();
 		}
 		this.currentState = null;
+		super.end();
 	}
 
 	/**

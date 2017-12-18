@@ -3,12 +3,12 @@ package org.usfirst.frc.team2357.robot.subsystems.drive.commands.flexible;
 import org.usfirst.frc.team2357.robot.Robot;
 import org.usfirst.frc.team2357.robot.subsystems.drive.DriveSubsystem;
 
-import edu.wpi.first.wpilibj.command.StateCommand;
+import edu.wpi.first.wpilibj.command.AbstractStateCommand;
 
 /**
  * Used to drive the robot at arcade type move and turn settings.
  */
-public abstract class AbstractDriveRobot extends StateCommand {
+public abstract class AbstractDriveRobot extends AbstractStateCommand {
 	protected final DriveSubsystem driveSubsystem;
 	private double ms = 0.0;
 

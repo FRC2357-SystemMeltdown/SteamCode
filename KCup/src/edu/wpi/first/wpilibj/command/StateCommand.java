@@ -1,18 +1,12 @@
 package edu.wpi.first.wpilibj.command;
 
 /**
- * An abstract base class for all {@link Command}s that will be used as the
- * command for a {@link State} as part of a {@link StateMachineCommand}.
+ * An interface for all {@link Command}s that will be used as the command for a
+ * {@link State} as part of a {@link StateMachineCommand}.
  * 
  * @author Steven Wasleski
  */
-public abstract class StateCommand extends Command {
-	private StateMachineCommand<?> stateMachine;
-
-	public StateCommand() {
-		super();
-	}
-
+public interface StateCommand {
 	/**
 	 * Used by the containing {@link StateMachineCommand} to set itself for
 	 * callbacks.
@@ -20,41 +14,15 @@ public abstract class StateCommand extends Command {
 	 * @param stateMachine
 	 *            the containing {@link StateMachineCommand}.
 	 */
-	void setStateMachine(StateMachineCommand<?> stateMachine) {
-		this.stateMachine = stateMachine;
-	}
+	public void setStateMachine(StateMachineCommand<?> stateMachine);
 
 	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * Upon the normal completion of this command, the next state, if any, is
-	 * started.
-	 * </p>
+	 * Shadow of {@link Command#cancel()}.
 	 */
-	@Override
-	protected void end() {
-		super.end();
-		// In case this command is use outside a state machine check for null.
-		if (this.stateMachine != null) {
-			this.stateMachine.startNextState();
-			this.stateMachine = null;
-		}
-	}
+	public void cancel();
 
 	/**
-	 * {@inheritDoc}
-	 * 
-	 * <p>
-	 * If the current command is interrupted, the whole state machine ends.
-	 * </p>
+	 * Shadow of {@link Command#start()}.
 	 */
-	@Override
-	protected void interrupted() {
-		// In case this command is use outside a state machine check for null.
-		if (this.stateMachine != null) {
-			this.stateMachine.terminate();
-		}
-		super.interrupted();
-	}
+	public void start();
 }

@@ -1,6 +1,6 @@
 package edu.wpi.first.wpilibj.command;
 
-public class StateWaitCommand extends StateCommand {
+public class StateWaitCommand extends AbstractStateCommand {
 	public StateWaitCommand(double timeout) {
 		super();
 		super.setTimeout(timeout);

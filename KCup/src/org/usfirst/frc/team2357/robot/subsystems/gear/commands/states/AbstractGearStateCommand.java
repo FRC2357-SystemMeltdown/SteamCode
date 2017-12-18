@@ -5,14 +5,14 @@ import org.usfirst.frc.team2357.robot.oi.GearOI;
 import org.usfirst.frc.team2357.robot.subsystems.gear.GearSubsystem;
 import org.usfirst.frc.team2357.robot.subsystems.gear.commands.DoorsStateMachineCommand;
 
+import edu.wpi.first.wpilibj.command.AbstractStateCommand;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.StateCommand;
 
 /**
  * Base class for all {@link Command} instances run as part of
  * {@link DoorsStateMachineCommand}.
  */
-public abstract class AbstractGearStateCommand extends StateCommand {
+public abstract class AbstractGearStateCommand extends AbstractStateCommand {
 	/**
 	 * The subsystem can and should be initialized in the constructor since the
 	 * subsystems are the first thing created during robot initialization and we
@@ -44,6 +44,7 @@ public abstract class AbstractGearStateCommand extends StateCommand {
 	 */
 	@Override
 	protected void initialize() {
+		super.initialize();
 		this.gearOI = Robot.getInstance().getOI().getGearOI();
 	}
 }

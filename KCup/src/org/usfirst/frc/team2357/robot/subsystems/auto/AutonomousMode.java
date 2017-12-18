@@ -3,10 +3,11 @@ package org.usfirst.frc.team2357.robot.subsystems.auto;
 import java.util.function.Supplier;
 
 import org.usfirst.frc.team2357.robot.subsystems.auto.commands.BoilersideGearAuto;
-import org.usfirst.frc.team2357.robot.subsystems.auto.commands.CenterGearAuto;
+import org.usfirst.frc.team2357.robot.subsystems.auto.commands.CenterGearAutoStateMachine;
 import org.usfirst.frc.team2357.robot.subsystems.auto.commands.DriveBaseline;
 import org.usfirst.frc.team2357.robot.subsystems.auto.commands.FeedersideGearAuto;
 import org.usfirst.frc.team2357.robot.subsystems.auto.commands.OldCenterGearAuto;
+import org.usfirst.frc.team2357.robot.subsystems.auto.commands.RedFeedersideGearAutoStateMachine;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,9 +18,9 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 enum AutonomousMode {
 	DriveBaseline(() -> new DriveBaseline()),
-	CenterGearAutoRed(() -> new CenterGearAuto(true)),
-	CenterGearAutoBlue(() -> new CenterGearAuto(false)),
-	FeedersideGearAutoRed(() -> new FeedersideGearAuto(true)),
+	CenterGearAutoRed(() -> new CenterGearAutoStateMachine()),
+	CenterGearAutoBlue(() -> new CenterGearAutoStateMachine()),
+	FeedersideGearAutoRed(() -> new RedFeedersideGearAutoStateMachine()),
 	FeedersideGearAutoBlue(() -> new FeedersideGearAuto(false)),
 	BoilersideGearAutoRed(() -> new BoilersideGearAuto(true)),
 	BoilersideGearAutoBlue(() -> new BoilersideGearAuto(false)),

@@ -3,13 +3,13 @@ package org.usfirst.frc.team2357.robot.subsystems.drive.commands.turns;
 import org.usfirst.frc.team2357.robot.Robot;
 import org.usfirst.frc.team2357.robot.subsystems.drive.DriveSubsystem;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.AbstractStateCommand;
 
 /**
  * Implements most of smooth turn to angle, that is, a turn of a given radius at
  * a given speed.
  */
-public abstract class AbstractRadiusTurnToAngle extends Command {
+public abstract class AbstractRadiusTurnToAngle extends AbstractStateCommand {
 	protected final DriveSubsystem driveSubsystem;
 	private final double timeout;
 	protected double targetAngle;
@@ -45,6 +45,7 @@ public abstract class AbstractRadiusTurnToAngle extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		super.initialize();
 		curve = this.driveSubsystem.startRadiusTurnToAngle(targetAngle, radius, move >= 0);
 		if (this.timeout >= 0.0)
 			setTimeout(this.timeout);
@@ -52,6 +53,7 @@ public abstract class AbstractRadiusTurnToAngle extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		super.execute();
 		this.driveSubsystem.radiusTurnDrive(move, curve);
 	}
 
@@ -63,5 +65,6 @@ public abstract class AbstractRadiusTurnToAngle extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		this.driveSubsystem.stopRadiusTurnToAngle();
+		super.end();
 	}
 }

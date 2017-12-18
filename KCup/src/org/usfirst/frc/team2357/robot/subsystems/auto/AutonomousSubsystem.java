@@ -4,6 +4,7 @@ import org.usfirst.frc.team2357.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This subsystem is used to select an {@link AutonomousMode} and a sprint
@@ -22,6 +23,7 @@ public class AutonomousSubsystem extends Subsystem {
 		super();
 		this.autoSprint.addDefault("No sprint", Boolean.FALSE);
 		this.autoSprint.addObject("Sprint", Boolean.TRUE);
+		SmartDashboard.putData("Sprint", this.autoSprint);
 	}
 
 	/**
